@@ -3,12 +3,12 @@
 Using linked lists of various data types for a long time now, implementing a generic doubly linked list in C was probably a good idea.
 It's interface can be found in "list.h".
 
-### How it works ###
+### How it's set ###
 
 To create a doubly linked list of a certain type you need to define it's 'member methods'(see list.h, struct G_list).
 After that, you can create a list of this type and apply whatever function(e.g listInsert, listMap etc.) on it.
 
-### How to use it ###
+### Let's run it ###
 
 In order to use the generic list(struct G_list) in one of your programs compile with gcc to produce a .o file.
 For example:
