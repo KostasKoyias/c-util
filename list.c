@@ -42,14 +42,23 @@ int listInsert(struct G_list* list, const void *data){
 /* delete an element of the list, returns 0 in success and -1 if the element given is not a list's member*/
 int listDelete(struct G_list* list, const void *data){
     struct G_node *node;
+    uint8_t flag; 
+
     if(list == NULL || list->head == NULL || data == NULL || list->comp == NULL)
         return -1;
-    if(list->comp(list->head->data, data) == 0){
+    if(list->comp(list->head->data, data) != NULL){
         node = list->head;
         list->head = node->next;
     }
     else{
-        if((node = listSearch(list, data)) == NULL)
+        flag = 0;
+        for(node = list->head; node != NULL; node = node->next){
+            if(list->comp(node->data, data) != NULL){
+                flag = 1;
+                break;
+            }
+        }
+        if(flag == 0)
             return -1;
         if(node->next != NULL)
             node->next->prev = node->prev;
@@ -116,4 +125,3 @@ int listMap(struct G_list* list, int (*function)(void*)){
         function(parser->data);
     return 0;
 }
-
