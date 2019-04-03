@@ -8,7 +8,7 @@ It's interface can be found in "list.h".
 To create a doubly linked list of a certain type you need to define it's 'member methods'(see list.h, struct G_list).
 After that, you can create a list of this type and apply whatever function(e.g listInsert, listMap etc.) on it.
 
-### Let's run it ###
+### How to use it
 
 In order to use the generic list(struct G_list) in one of your programs compile with gcc to produce a .o file.
 For example:
@@ -19,6 +19,12 @@ or you 've specified the path to gcc, using the -L option.
 To compile your programm, say 'myprog.c' execute:
 	gcc -o myprog myprog.c list.o
 and you are set, you can now run the 'myprog' executable.
+
+### Let's run it
+	
+To make things easier, a makefile and a c source file called 'main.c' demonstrating how to use the list library are included.\
+Take a good look at the code. It's easy to understand and it will help you learn how to use the library easy and quickly.\
+Type 'make' and then './main' to run the sample. 
 
 #### Author ####
 Name:  Kostas Koyias
