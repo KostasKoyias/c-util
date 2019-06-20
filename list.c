@@ -1,7 +1,8 @@
 #include "list.h"
 
-/*  check whether an instance of a certain type belongs to a list, comparing it with the list's elements using a type-specific comparison function
-    returns a pointer to the item's position if it exists or NULL if it does not*/
+/*  check whether an instance of a certain type belongs to a list, comparing it with the list's elements 
+    using a type-specific comparison function
+    returns a pointer to the item's position if it exists or NULL if it does not */
 void* listSearch(const struct G_list* list, const void *data){
     struct G_node* parser;
     void *result;
@@ -14,7 +15,7 @@ void* listSearch(const struct G_list* list, const void *data){
     return NULL;
 }
 
-/* insert an item in the list, initialize it's value using function 'init', which was passed as a parameter*/
+// insert an item in the list, initialize it's value using function 'init', which was passed as a parameter
 int listInsert(struct G_list* list, const void *data){
     struct G_node* node;
     if(list->assign == NULL || list == NULL || data == NULL)
@@ -39,7 +40,7 @@ int listInsert(struct G_list* list, const void *data){
     return list->assign(node->data, data);
 }
 
-/* delete an element of the list, returns 0 in success and -1 if the element given is not a list's member*/
+// delete an element of the list, returns 0 in success and -1 if the element given is not a list's member
 int listDelete(struct G_list* list, const void *data){
     struct G_node *node;
     uint8_t flag; 
@@ -75,18 +76,18 @@ int listDelete(struct G_list* list, const void *data){
     return 0;
 }
 
-/* print all nodes of a list */
+// print all nodes of a list 
 int listPrint(const struct G_list *list){
     struct G_node* parser;
     if(list == NULL || list->head == NULL || list->print == NULL)
         return -1;
-    fprintf(stdout, "\nlist of length %d and node size %d\n-------------------------------------\n", list->length, (int)list->type_size);
+    fprintf(stdout, "\n\e[1;4mList of length %d and node size %d\e[0m\n", list->length, (int)list->type_size);
     for(parser = list->head; parser != NULL; parser = parser->next)
         list->print(parser->data);
     return 0;
 }
 
-/* free all nodes of a list*/
+// free all nodes of a list
 int listFree(struct G_list* list){
     struct G_node *parser, *temp;
     if(list == NULL)
@@ -103,7 +104,7 @@ int listFree(struct G_list* list){
     return 0;
 }
 
-/* add up all elements in a list and return the sum */
+// add up all elements in a list and return the sum
 double listSum(const struct G_list* list){
     struct G_node *parser;
     double sum = 0;
