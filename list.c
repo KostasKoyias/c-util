@@ -3,8 +3,8 @@
 /*  check whether an instance of a certain type belongs to a list, comparing it with the list's elements 
     using a type-specific comparison function
     returns a pointer to the item's position if it exists or NULL if it does not */
-void* listSearch(const struct G_list* list, const void *data){
-    struct G_node* parser;
+void* listSearch(const list_t* list, const void *data){
+    node_t* parser;
     void *result;
     if(list->comp == NULL || list == NULL || list->head == NULL || data == NULL)
         return NULL;
@@ -16,11 +16,11 @@ void* listSearch(const struct G_list* list, const void *data){
 }
 
 // insert an item in the list, initialize it's value using function 'init', which was passed as a parameter
-int listInsert(struct G_list* list, const void *data){
-    struct G_node* node;
+int listInsert(list_t* list, const void *data){
+    node_t* node;
     if(list->assign == NULL || list == NULL || data == NULL)
         return -1;
-    if((node = malloc(sizeof(struct G_node))) == NULL){
+    if((node = malloc(sizeof(node_t))) == NULL){
         perror("listInsert - malloc");
         return -2;
     }
@@ -41,8 +41,8 @@ int listInsert(struct G_list* list, const void *data){
 }
 
 // delete an element of the list, returns 0 in success and -1 if the element given is not a list's member
-int listDelete(struct G_list* list, const void *data){
-    struct G_node *node;
+int listDelete(list_t* list, const void *data){
+    node_t *node;
     uint8_t flag; 
 
     if(list == NULL || list->head == NULL || data == NULL || list->comp == NULL)
@@ -77,8 +77,8 @@ int listDelete(struct G_list* list, const void *data){
 }
 
 // print all nodes of a list 
-int listPrint(const struct G_list *list){
-    struct G_node* parser;
+int listPrint(const list_t *list){
+    node_t* parser;
     if(list == NULL || list->head == NULL || list->print == NULL)
         return -1;
     fprintf(stdout, "\n\e[1;4mList of length %d and node size %d\e[0m\n", list->length, (int)list->type_size);
@@ -88,8 +88,8 @@ int listPrint(const struct G_list *list){
 }
 
 // free all nodes of a list
-int listFree(struct G_list* list){
-    struct G_node *parser, *temp;
+int listFree(list_t* list){
+    node_t *parser, *temp;
     if(list == NULL)
         return -1;
     for(parser = list->head; parser != NULL; parser = temp){
@@ -105,8 +105,8 @@ int listFree(struct G_list* list){
 }
 
 // add up all elements in a list and return the sum
-double listSum(const struct G_list* list){
-    struct G_node *parser;
+double listSum(const list_t* list){
+    node_t *parser;
     double sum = 0;
 
     // check whether there is a definition about the value of this kind of data
@@ -120,8 +120,8 @@ double listSum(const struct G_list* list){
 }
 
 // apply a function to each element of a list
-int listMap(struct G_list* list, int (*function)(void*)){
-    struct G_node *parser;
+int listMap(list_t* list, int (*function)(void*)){
+    node_t *parser;
     for(parser = list->head; parser != NULL; parser = parser->next)
         function(parser->data);
     return 0;

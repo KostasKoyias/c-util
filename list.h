@@ -11,15 +11,15 @@
     #include <stdlib.h>
     #include <stdint.h>
 
-    struct G_node{
+    typedef struct G_node{
         void *data;
         struct G_node *next;
         struct G_node *prev;
-    };
+    }node_t;
 
-    struct G_list{
+    typedef struct G_list{
         // fields
-        struct G_node* head;
+        node_t* head;
         size_t type_size; 
         uint8_t length;   
 
@@ -29,15 +29,15 @@
         int (*print)(void*);
         void (*free_data)(void *);
         double (*value)(const void *);
-    };
+    }list_t;
 
     /* doubly linked list methods*/
-    void* listSearch(const struct G_list*, const void* data);
-    int listInsert(struct G_list*, const void*);
-    int listPrint(const struct G_list*);
-    int listDelete(struct G_list*, const void*);
-    int listFree(struct G_list*);
-    double listSum(const struct G_list*);
-    int listMap(struct G_list*, int (*)(void *));
+    void* listSearch(const list_t*, const void* data);
+    int listInsert(list_t*, const void*);
+    int listPrint(const list_t*);
+    int listDelete(list_t*, const void*);
+    int listFree(list_t*);
+    double listSum(const list_t*);
+    int listMap(list_t*, int (*)(void *));
 
 #endif

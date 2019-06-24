@@ -39,7 +39,7 @@ int print(void *p1){
 
 int main(){
     struct Person ps[USERS]={{0,"Thomas"}, {2, "Kyrie"}, {15, "Kemba"}, {23, "Gardner"}};
-    struct G_list list = {NULL, sizeof(struct Person), 0, compare, assign, print, NULL, NULL}; // initialize list
+    list_t list = {NULL, sizeof(struct Person), 0, compare, assign, print, NULL, NULL}; // initialize list
     int i;
 
     // insert records

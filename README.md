@@ -5,12 +5,12 @@ It's interface can be found in `list.h`.
 
 ## How it's set ##
 
-To create a doubly linked list of a certain type you need to define it's 'member methods'(see list.h, struct G_list).
+To create a doubly linked list of a certain type you need to define it's 'member methods'(see list.h, `struct G_list` aka `list_t`).
 After that, you can create a list of this type and apply whatever function(e.g listInsert, listMap etc.) on it.
 
 ## How to use it ##
 
-In order to use the generic list(struct G_list) in one of your programs compile with gcc to produce a .o file.
+In order to use the generic list(`list_t`) in one of your programs compile with gcc to produce a .o file.
 For example:
 
 ```bash
