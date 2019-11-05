@@ -1,5 +1,5 @@
-#include "include/list.h"
-#include "include/utils.h"
+#include "list.h"
+#include "utils.h"
 
 int listInit(list_t *list, const char *name, const size_t node_size, int (*init)(void*, const void*), 
             int (*comp)(const void*, const void*), int (*print)(const void*), void (*freeData)(void*)){
@@ -22,6 +22,12 @@ int listInit(list_t *list, const char *name, const size_t node_size, int (*init)
         list->freeData = freeData != NULL ? freeData : free;
         
         return 0;
+}
+
+int listIsEmpty(const list_t *list){
+    if(list == NULL)
+        return -1;
+    return list->head == NULL;
 }
 
 /*  check whether an instance of a certain type belongs to a list, comparing it with the list's elements 
@@ -107,6 +113,7 @@ node_t *listPop(list_t *list){
     if(node == list->tail)
         list->tail = node->next;
     list->head = node->next;
+    list->length--;
     return node;
 }
 
@@ -156,11 +163,20 @@ int listFree(list_t* list){
     if(list == NULL)
         return -1;
 
+    // de-allocate all memory used
     reset(list->name);
     for(parser = list->head; parser != NULL; parser = temp){
         temp = parser->next;
         list->freeData(parser->data);
         reset(parser);
     }
+
+    // clear all properties
+    list->init = NULL;
+    list->comp = NULL;
+    list->print = NULL;
+    list->freeData = NULL;
+    list->head = list->tail = NULL;
+    list->length = list->node_size = 0;
     return 0;
 }

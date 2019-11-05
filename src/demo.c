@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <assert.h>
-#include "include/list.h"
+#include "list.h"
 #define NAME 20
 #define USERS 4
 
@@ -15,14 +15,14 @@ typedef struct person{
 // person_t member methods are defined below
 int compare(const void *p1, const void *vid){
     assert(p1 != NULL && vid != NULL);
+
     const person_t *pp1 = p1;
     const int *id = vid;
     return pp1->id - *id;
 }
 
 int init(void *p1, const void *p2){
-    if(p1 == NULL || p2 == NULL)
-        return -1;
+    assert(p1 != NULL && p2 != NULL);
 
     person_t *pp1 = (person_t*)p1, *pp2 = (person_t *)p2;
     pp1->id = pp2->id;
@@ -31,8 +31,7 @@ int init(void *p1, const void *p2){
 }
 
 int print(const void *p1){
-    if(p1 == NULL)
-        return -1;
+    assert(p1 != NULL);
 
     const person_t *pp1 = (person_t*)p1;
     fprintf(stdout, "\nId: %d\nName: %s\n", pp1->id, pp1->name);
@@ -41,15 +40,15 @@ int print(const void *p1){
 
 int sumIds(void *data, int total){
     person_t *p = data;
-    if(data == NULL)
-        return -1;
+    assert(data != NULL);
+
     return p->id + total;
 }
 
 int prodIds(void *data, int total){
     person_t *p = data;
-    if(data == NULL)
-        return -1;
+    assert(data != NULL);
+
     return p->id * total;
 }
 

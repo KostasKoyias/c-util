@@ -1,5 +1,6 @@
-#include "include/list.h"
+#include "list.h"
 
+// apply a non-modifying function to each element
 int listForEach(const list_t *list, int (*function)(const void*)){
     node_t *parser;
     for(parser = list->head; parser != NULL; parser = parser->next)
@@ -7,7 +8,7 @@ int listForEach(const list_t *list, int (*function)(const void*)){
     return 0;  
 }
 
-// apply a function to each element of a list
+// apply a function to each element of a list that might change its value
 int listMap(list_t* list, int (*function)(void*)){
     node_t *parser;
     for(parser = list->head; parser != NULL; parser = parser->next)
@@ -25,9 +26,10 @@ int listReduce(list_t *list, int init, int (*reducer)(void *, const int)){
     return init;
 }
 
+// return a pointer to the node of the list holding the maximum value
 node_t *listMax(list_t *list){
     node_t *max = NULL, *i;
-    if(list == NULL || list->comp == NULL)
+    if(list == NULL || listIsEmpty(list) || list->comp == NULL)
         return NULL;
     
     for(i = list->head, max = i; i->next != NULL; i = i->next){

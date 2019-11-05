@@ -28,12 +28,12 @@
         int (*init)(void*, const void*);
         int (*print)(const void*);
         void (*freeData)(void *);
-        double (*value)(const void *);
     }list_t;
 
     // basic list methods
     int listInit(list_t *, const char *, const size_t, int (*)(void *, const void*),
                  int (*)(const void *, const void*), int (*)(const void*), void (*)(void *));
+    int listIsEmpty(const list_t*);
     void* listSearch(const list_t*, const void* data);
 
     int listAdd(list_t*, const void*, uint8_t);
