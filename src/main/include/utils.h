@@ -4,8 +4,8 @@
     #include "define.h"
     #define DEFAULT_NAME "No name list"
 
-    int strRename(char **, const char *);
+    int str_rename(char **, const char *);
     int reset(void *);
-    int perrorReturn(const char *, int);
+    int perror_return(const char *, int);
 
 #endif

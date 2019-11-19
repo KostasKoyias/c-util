@@ -1,6 +1,6 @@
 #include "include/utils.h"
 
-int strRename(char **dst, const char *src){
+int str_rename(char **dst, const char *src){
     if(dst == NULL || src == NULL)
         return -1;
     
@@ -26,7 +26,7 @@ int reset(void *ptr){
     return 0;
 }
 
-int perrorReturn(const char *msg, int rv){
+int perror_return(const char *msg, int rv){
     if(msg == NULL)
         return -1;
     perror(msg);

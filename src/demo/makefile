@@ -3,13 +3,14 @@ MAIN = $(shell git rev-parse --show-toplevel)/src/main
 INCLUDE = $(MAIN)/include
 CFLAGS = -g3 -Wall -I$(INCLUDE)
 
-HDRS = $(INCLUDE)/define.h $(INCLUDE)/list.h
-OBJS = $(MAIN)/list.o $(MAIN)/listUtils.o $(MAIN)/utils.o
+HDRS = $(INCLUDE)/define.h $(INCLUDE)/list.h person.h
+OBJS = $(MAIN)/list.o $(MAIN)/listUtils.o $(MAIN)/utils.o person.o
+OUT = main
 
-all: demo $(OBJS)  
+all: $(OUT)  
 
 # main program
-demo: $(OBJS) $(HDRS)
+main: $(OBJS) $(HDRS)
 
 clean: 
-	rm -f $(OBJS) demo 
+	rm -f $(OBJS) $(OUT) 

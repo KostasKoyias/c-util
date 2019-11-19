@@ -1,7 +1,7 @@
 #include "list.h"
 
 // apply a non-modifying function to each element
-int listForEach(const list_t *list, int (*function)(const void*)){
+int list_for_each(const list_t *list, int (*function)(const void*)){
     node_t *parser;
     for(parser = list->head; parser != NULL; parser = parser->next)
         function(parser->data);
@@ -9,14 +9,14 @@ int listForEach(const list_t *list, int (*function)(const void*)){
 }
 
 // apply a function to each element of a list that might change its value
-int listMap(list_t* list, int (*function)(void*)){
+int list_map(list_t* list, int (*function)(void*)){
     node_t *parser;
     for(parser = list->head; parser != NULL; parser = parser->next)
         function(parser->data);
     return 0;
 }
 
-int listReduce(list_t *list, int init, int (*reducer)(void *, const int)){
+int list_reduce(list_t *list, int init, int (*reducer)(void *, const int)){
     node_t *i;
     if(list == NULL || reducer == NULL)
         return -1;
@@ -27,13 +27,13 @@ int listReduce(list_t *list, int init, int (*reducer)(void *, const int)){
 }
 
 // return a pointer to the node of the list holding the maximum value
-node_t *listBest(list_t *list, uint8_t maxOrMin){
+node_t *list_best(list_t *list, uint8_t max_or_min){
     node_t *best = NULL, *i;
-    if(list == NULL || listIsEmpty(list) || list->cmp == NULL)
+    if(list == NULL || list_is_empty(list) || list->cmp == NULL)
         return NULL;
     
     for(i = list->head, best = i; i->next != NULL; i = i->next){
-        if((maxOrMin == 0 && list->cmp(best, i->next) < 0) || (maxOrMin && list->cmp(best, i->next) > 0))
+        if((max_or_min == 0 && list->cmp(best, i->next) < 0) || (max_or_min && list->cmp(best, i->next) > 0))
             best = i->next;
     }
     return best;
