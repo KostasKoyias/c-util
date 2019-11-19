@@ -1,12 +1,10 @@
 #ifndef _person_H
 #define _person_H
     #include <stdarg.h>
-    #define MAX_NAME 20
-
 
     typedef struct person{
         unsigned int id;
-        char name[MAX_NAME];
+        char * name;
     }person_t;
 
     int compare(const void*, const void*);

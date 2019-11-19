@@ -8,9 +8,9 @@ The interface can be found in `list.h`.
 ## How it's set ##
 
 To create a doubly linked list of a certain type you need to define
-some 'member methods' of the particular node type(see list.h, `list_t`).
+some 'member methods' of the particular type a list node will point to.
 After that, you can create a list of this type and apply
-whatever function(e.g listInsert, listMap etc.) on it.
+whatever function(e.g list_insert, list_map etc.) on it.
 
 ## How to use it ##
 
@@ -19,20 +19,21 @@ In order to use a generic list(`list_t`) in one of your programs,
 * first compile
 
   * list.c
-  * listUtils.c and
+  * list_utils.c and
   * utils.c
 
 * then link the corresponding .o files to your project and finally
 * *\#include `list.h`* in all files using a list_t.
+
+Before using this library, take a good look at the [API](./API.md).
+It's easy to understand and it will help you learn how
+to use the library easy and quickly.\
 
 ## Let's run it ##
 
 To make things easier, a makefile template and a demo c source file called `main.c`
 demonstrating how to use the list library, using an example of a struct person
 implementation are included under `src/demo`.\
-Take a good look at the code and the [API](./API.md).
-It's easy to understand and it will help you learn how
-to use the library easy and quickly.\
 Type
 
 ```bash

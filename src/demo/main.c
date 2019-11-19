@@ -4,16 +4,16 @@
 #define USERS 4
 
 int main(){
-    person_t ps[USERS]={{1,"Thomas"}, {2, "Kyrie"}, {15, "Kemba"}, {34, "Gardner"}};
+    char* ps[USERS] = {"Thomas", "Kyrie", "Kemba", "Gardner"};
     list_t list;
     int i;
 
     // initialize list
-    list_init(&list, NULL, sizeof(person_t), init, compare, print, free);
+    list_init(&list, "demo-list", sizeof(person_t), init_wrapper, compare, print, destroy);
 
     // insert records
     for(i = 0; i < USERS; i++)
-        list_insert(&list, ps + i);
+        list_insert(&list, ps[i]);
     
     // print list
     list_print(&list);
@@ -22,11 +22,9 @@ int main(){
             ((person_t*)(list_best(&list, 0)->data))->id,((person_t*)(list_best(&list, 1)->data))->id);
 
     // delete all records having odd ids
-    fprintf(stdout, "\nRemoving records with odd ids\n");
-    for(i = 0; i < USERS; i++){
-        if(ps[i].id % 2)
-            list_delete(&list, &(ps[i].id));
-    }
+    i = 1;
+    fprintf(stdout, "\n>> Removing user with id = %d\n", i);
+    list_delete(&list, &i);
     
     // print again
     list_print(&list);

@@ -1,4 +1,4 @@
-#include "include/utils.h"
+#include "utils.h"
 
 int str_rename(char **dst, const char *src){
     if(dst == NULL || src == NULL)
@@ -21,6 +21,7 @@ int str_rename(char **dst, const char *src){
 int reset(void *ptr){
     if(ptr == NULL)
         return -1;
+
     free(ptr);
     ptr = NULL;
     return 0;
