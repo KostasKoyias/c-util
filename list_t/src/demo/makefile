@@ -1,5 +1,5 @@
 CC = gcc
-MAIN = $(shell git rev-parse --show-toplevel)/src/main
+MAIN = $(shell git rev-parse --show-toplevel)/list_t/src/main
 INCLUDE = $(MAIN)/include
 CFLAGS = -g3 -Wall -I$(INCLUDE)
 
