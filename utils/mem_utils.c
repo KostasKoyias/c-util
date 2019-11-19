@@ -1,6 +1,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <assert.h>
+#include "utils.h"
 
 int memswap(void* a, void *b, size_t size){
     void *tmp;

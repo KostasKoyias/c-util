@@ -1,3 +1,5 @@
+#include <stdio.h>
+#include <string.h>
 #include "list.h"
 
 // apply a non-modifying function to each element

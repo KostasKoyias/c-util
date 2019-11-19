@@ -1,3 +1,5 @@
+#include <stdlib.h>
+#include <string.h>
 #include "utils.h"
 
 int str_rename(char **dst, const char *src){
@@ -15,21 +17,4 @@ int str_rename(char **dst, const char *src){
     // copy src to dst
     strcpy(*dst, src);
     return 0;
-}
-
-// free all memory pointed by a some pointer & set it back to NULL
-int reset(void *ptr){
-    if(ptr == NULL)
-        return -1;
-
-    free(ptr);
-    ptr = NULL;
-    return 0;
-}
-
-int perror_return(const char *msg, int rv){
-    if(msg == NULL)
-        return -1;
-    perror(msg);
-    return rv;
 }
