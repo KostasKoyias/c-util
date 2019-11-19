@@ -27,16 +27,18 @@ In order to use a generic list(`list_t`) in one of your programs,
 
 ## Let's run it ##
 
-To make things easier, a makefile template and a demo c source file called `demo.c`
-demonstrating how to use the list library are included.\
-Take a good look at the code and the API.
+To make things easier, a makefile template and a demo c source file called `main.c`
+demonstrating how to use the list library, using an example of a struct person
+implementation are included under `src/demo`.\
+Take a good look at the code and the [API](./API.md).
 It's easy to understand and it will help you learn how
 to use the library easy and quickly.\
 Type
 
 ```bash
-make demo
-./demo
+list_t >> cd src/demo
+list_t/src/demo >> make
+list_t/src/demo >> ./main
 ```
 
 to run the sample.
