@@ -1,7 +1,7 @@
 CC = gcc
 BASE = $(shell git rev-parse --show-toplevel)
 MAIN = $(BASE)/vector_t/src/main
-UTILS = $(BASE)/utils
+UTILS = $(BASE)/utils/src
 CFLAGS = -g3 -Wall -I$(UTILS) -I$(MAIN)
 HDRS = $(MAIN)/vector.h $(UTILS)/utils.h person.h
 OUT = main order info

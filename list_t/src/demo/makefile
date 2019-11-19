@@ -1,7 +1,7 @@
 CC = gcc
 BASE = $(shell git rev-parse --show-toplevel)
 MAIN = $(BASE)/list_t/src/main
-UTILS = $(BASE)/utils
+UTILS = $(BASE)/utils/src
 CFLAGS = -g3 -Wall -I$(MAIN) -I$(UTILS)
 
 HDRS = $(MAIN)/list.h $(UTILS)/utils.h person.h
