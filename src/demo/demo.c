@@ -66,8 +66,9 @@ int main(){
     
     // print list
     listPrint(&list);
-    fprintf(stdout, "\n\e[1;4mStats\e[0m\n* Sum of Ids: %d\n* Prod of ids: %d\n* Max Id: %d\n", 
-            listReduce(&list, 0, sumIds), listReduce(&list, 1, prodIds), ((person_t*)(listMax(&list)->data))->id);
+    fprintf(stdout, "\n\e[1;4mStats\e[0m\n* Sum of Ids: %d\n* Prod of ids: %d\n* Max Id: %d, Min Id: %d\n", 
+            listReduce(&list, 0, sumIds), listReduce(&list, 1, prodIds), 
+            ((person_t*)(listBest(&list, 0)->data))->id,((person_t*)(listBest(&list, 1)->data))->id);
 
     // delete all records having odd ids
     fprintf(stdout, "\nRemoving records with odd ids\n");

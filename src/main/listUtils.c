@@ -27,14 +27,14 @@ int listReduce(list_t *list, int init, int (*reducer)(void *, const int)){
 }
 
 // return a pointer to the node of the list holding the maximum value
-node_t *listMax(list_t *list){
-    node_t *max = NULL, *i;
-    if(list == NULL || listIsEmpty(list) || list->comp == NULL)
+node_t *listBest(list_t *list, uint8_t maxOrMin){
+    node_t *best = NULL, *i;
+    if(list == NULL || listIsEmpty(list) || list->cmp == NULL)
         return NULL;
     
-    for(i = list->head, max = i; i->next != NULL; i = i->next){
-        if(list->comp(max, i->next) < 0)
-            max = i->next;
+    for(i = list->head, best = i; i->next != NULL; i = i->next){
+        if((maxOrMin == 0 && list->cmp(best, i->next) < 0) || (maxOrMin && list->cmp(best, i->next) > 0))
+            best = i->next;
     }
-    return max;
+    return best;
 }

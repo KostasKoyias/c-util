@@ -24,7 +24,7 @@
         uint8_t length;   
 
         // member methods for specific type
-        int (*comp)(const void*, const void*);
+        int (*cmp)(const void*, const void*);
         int (*init)(void*, const void*);
         int (*print)(const void*);
         void (*freeData)(void *);
@@ -51,6 +51,6 @@
     int listMap(list_t*, int (*)(void *));
     int listForEach(const list_t*, int (*)(const void *));
     int listReduce(list_t *, int, int (*)(void *, const int));
-    node_t *listMax(list_t *);
+    node_t *listBest(list_t *, uint8_t);
 
 #endif

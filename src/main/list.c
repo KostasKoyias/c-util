@@ -2,7 +2,7 @@
 #include "utils.h"
 
 int listInit(list_t *list, const char *name, const size_t node_size, int (*init)(void*, const void*), 
-            int (*comp)(const void*, const void*), int (*print)(const void*), void (*freeData)(void*)){
+            int (*cmp)(const void*, const void*), int (*print)(const void*), void (*freeData)(void*)){
         if(list == NULL || init == NULL || node_size < 0)
             return -1;
 
@@ -17,7 +17,7 @@ int listInit(list_t *list, const char *name, const size_t node_size, int (*init)
 
         // member methods of list nodes
         list->init = init;       
-        list->comp = comp;
+        list->cmp = cmp;
         list->print = print;
         list->freeData = freeData != NULL ? freeData : free;
         
@@ -35,11 +35,11 @@ int listIsEmpty(const list_t *list){
     returns a pointer to the item's position if it exists or NULL if it does not */
 void *listSearch(const list_t* list, const void *data){
     node_t* parser;
-    if(list->comp == NULL || list == NULL || list->head == NULL || data == NULL)
+    if(list->cmp == NULL || list == NULL || list->head == NULL || data == NULL)
         return NULL;
 
     for(parser = list->head; parser != NULL; parser = parser->next){
-        if(list->comp(parser->data, data) == 0)
+        if(list->cmp(parser->data, data) == 0)
             return parser;
     }
     return NULL;
@@ -121,7 +121,7 @@ node_t *listPop(list_t *list){
 int listDelete(list_t* list, const void *data){
     node_t *node;
 
-    if(list == NULL || list->head == NULL || data == NULL || list->comp == NULL)
+    if(list == NULL || list->head == NULL || data == NULL || list->cmp == NULL)
         return -1;
 
     // find the node to be removed
@@ -151,7 +151,7 @@ int listPrint(const list_t *list){
     if(list == NULL || list->head == NULL || list->print == NULL)
         return -1;
 
-    fprintf(stdout, "\n\e[1;4m%s\e[0m\nlength: %d\nnode_size: %d\e[0m\n",
+    fprintf(stdout, "\n\e[1;4m%s\e[0m\n * length: %d\n * node_size: %d\e[0m\n",
              list->name, list->length, (int)list->node_size);
 
     return listForEach(list, list->print);
@@ -173,7 +173,7 @@ int listFree(list_t* list){
 
     // clear all properties
     list->init = NULL;
-    list->comp = NULL;
+    list->cmp = NULL;
     list->print = NULL;
     list->freeData = NULL;
     list->head = list->tail = NULL;
