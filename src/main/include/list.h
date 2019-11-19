@@ -13,6 +13,7 @@
         struct node *next;
         struct node *prev;
     }node_t;
+    int node_free(node_t*, void (*)(void* ));
 
     typedef struct list{
 
@@ -25,20 +26,20 @@
 
         // member methods for specific type
         int (*cmp)(const void*, const void*);
-        int (*init)(void*, const void*);
+        int (*init)(void*, va_list);
         int (*print)(const void*);
-        void (*free_data)(void *);
+        void (*destroy)(void *);
     }list_t;
 
     // basic list methods
-    int list_init(list_t *, const char *, const size_t, int (*)(void *, const void*),
+    int list_init(list_t *, const char *, const size_t, int (*)(void *, va_list),
                  int (*)(const void *, const void*), int (*)(const void*), void (*)(void *));
     int list_is_empty(const list_t*);
     void* list_search(const list_t*, const void* data);
 
-    int list_add(list_t*, const void*, uint8_t);
-    int list_insert(list_t*, const void*);
-    int list_push(list_t*, const void*);
+    int list_add(list_t*, va_list, uint8_t);
+    int list_insert(list_t*, ...);
+    int list_push(list_t*, ...);
 
     void *list_peek(list_t *);
     node_t *list_pop(list_t*);

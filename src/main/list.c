@@ -1,8 +1,20 @@
+#include <assert.h>
 #include "list.h"
 #include "utils.h"
 
-int list_init(list_t *list, const char *name, const size_t node_size, int (*init)(void*, const void*), 
-            int (*cmp)(const void*, const void*), int (*print)(const void*), void (*free_data)(void*)){
+int node_free(node_t *node, void (*destroy)(void *)){
+    void (*destructor)(void *) = destroy ? destroy : free;
+    if(node == NULL)
+        return -1;
+
+    destructor(node->data);
+    reset(node->data);
+    reset(node);
+    return 0;
+}
+
+int list_init(list_t *list, const char *name, const size_t node_size, int (*init)(void*, va_list), 
+            int (*cmp)(const void*, const void*), int (*print)(const void*), void (*destroy)(void*)){
         if(list == NULL || init == NULL || node_size < 0)
             return -1;
 
@@ -19,7 +31,7 @@ int list_init(list_t *list, const char *name, const size_t node_size, int (*init
         list->init = init;       
         list->cmp = cmp;
         list->print = print;
-        list->free_data = free_data != NULL ? free_data : free;
+        list->destroy = destroy != NULL ? destroy : free;
         
         return 0;
 }
@@ -46,19 +58,27 @@ void *list_search(const list_t* list, const void *data){
 }
 
 // insert a node to the beginning of a linked list
-int list_push(list_t *list, const void *data){
-    return list_add(list, data, 1);
+int list_push(list_t *list, ...){
+    va_list props;
+    va_start(props, list);
+    list_add(list, props, 1);
+    va_end(props);
+    return 0;
 }
 
 // insert a node to the end of a linked list
-int list_insert(list_t *list, const void *data){
-    return list_add(list, data, 0);
+int list_insert(list_t *list, ...){
+    va_list props;
+    va_start(props, list);
+    list_add(list, props, 0);
+    va_end(props);
+    return 0;
 }
 
 // insert an item in the list, initialize it's value using function 'init', which was passed as a parameter
-int list_add(list_t* list, const void *data, uint8_t at_front){
+int list_add(list_t* list, va_list props, uint8_t at_front){
     node_t *node;
-    if(list->init == NULL || list == NULL || data == NULL)
+    if(list == NULL || list->init == NULL)
         return -1;
 
     // allocate space for a new node
@@ -93,7 +113,7 @@ int list_add(list_t* list, const void *data, uint8_t at_front){
     list->length++;
     if(list->init == NULL)
         return -4;
-    return list->init(node->data, data);
+    return list->init(node->data, props);
 }
 
 // retrieves, but does not remove, the head of a linked list.
@@ -140,8 +160,7 @@ int list_delete(list_t* list, const void *data){
     if(node->next != NULL)
         node->next->prev = node->prev;
     
-    list->free_data(node->data);
-    reset(node);
+    node_free(node, list->destroy);
     list->length--;
     return 0;
 }
@@ -167,15 +186,14 @@ int list_free(list_t* list){
     reset(list->name);
     for(parser = list->head; parser != NULL; parser = temp){
         temp = parser->next;
-        list->free_data(parser->data);
-        reset(parser);
+        node_free(parser, list->destroy);
     }
 
     // clear all properties
     list->init = NULL;
     list->cmp = NULL;
     list->print = NULL;
-    list->free_data = NULL;
+    list->destroy = NULL;
     list->head = list->tail = NULL;
     list->length = list->node_size = 0;
     return 0;

@@ -6,40 +6,57 @@
 
 // person_t member methods are defined below
 int compare(const void *p1, const void *vid){
-    assert(p1 != NULL && vid != NULL);
+    assert(p1 && vid);
 
     const person_t *pp1 = p1;
     const int *id = vid;
     return pp1->id - *id;
 }
 
-int init(void *p1, const void *p2){
-    assert(p1 != NULL && p2 != NULL);
+int init_wrapper(void *p, va_list props){
+    char *name;
+    assert(p);
+    name = va_arg(props, char*);
+    return init(p, name);
+}
 
-    person_t *pp1 = (person_t*)p1, *pp2 = (person_t *)p2;
-    pp1->id = pp2->id;
-    strcpy(pp1->name, pp2->name);
+int init(void *person, const void *name){
+    static unsigned int id = 1;
+    person_t *p = person;
+    assert(person && name);
+
+    p->id = id;
+    p->name = malloc(strlen(name) + 1);
+    strcpy(p->name, name);
+
+    id += 11; // for the next person
     return 0;
 }
 
 int print(const void *p1){
-    assert(p1 != NULL);
-
     const person_t *pp1 = (person_t*)p1;
+    assert(p1);
+
     fprintf(stdout, "\nId: %d\nName: %s\n", pp1->id, pp1->name);
     return 0;
 }
 
+void destroy(void *person){
+    person_t *p = person;
+    assert(person);
+    free(p->name);
+}
+
 int sum_ids(void *data, int total){
     person_t *p = data;
-    assert(data != NULL);
+    assert(data);
 
     return p->id + total;
 }
 
 int prod_ids(void *data, int total){
     person_t *p = data;
-    assert(data != NULL);
+    assert(data);
 
     return p->id * total;
 }
