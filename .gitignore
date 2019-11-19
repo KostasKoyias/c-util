@@ -1,6 +1,0 @@
-*.[oa]
-src/*
-!src/*.c
-!src/*.h
-!src/include
-!src/makefile

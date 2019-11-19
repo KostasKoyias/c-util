@@ -1,0 +1,7 @@
+*.o
+demo/*
+!demo/*.c
+!demo/[Mm]akefile
+main/*
+!main/*.c
+!main/include
