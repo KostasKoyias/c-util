@@ -10,11 +10,11 @@
         void *data;
         size_t size;
         uint64_t next;
-        uint64_t nmemb;
+        uint64_t capacity;
 
         int (*init)(void *, va_list);
-        int (*seek)(const void*, const void*);
-        int (*cmp)(const void*, const void*);
+        int (*seek)(const void *, const void *);
+        int (*cmp)(const void *, const void *);
         void (*clone)(void*, const void*);
         void (*print)(void *);
         void (*destroy)(void *);
@@ -26,12 +26,15 @@
                     void (*)(void*, const void*), void (*)(void *), void (*)(void *));
     int vector_insert(void*, ...);
     void *vector_get(void*, uint64_t);
-    void *vector_seek(void*, const void*);
+    void *vector_seek(void*, const void*, uint64_t*);
     int vector_isfull(const void *);
+    int vector_remove(void *, const uint64_t);
+    int vector_delete(void *, const void *);
     void vector_print(void *);
+    void vector_shrink(void*);
     void vector_free(void*);
 
-    // utilities
+    // utilities and advanced methods
     void vector_reverse(void *);
     void vector_qsort(void *);
     void vector_reduce(void *, void *, void (*)(void*, void*));
