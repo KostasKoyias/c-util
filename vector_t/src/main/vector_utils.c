@@ -79,7 +79,7 @@ void vector_clone(void *dst, const void *src){
     int i, max;
     assert(dst && src && vsrc->clone);
 
-    vector_init(vdst, vsrc->size, vsrc->init, vsrc->cmp, vsrc->seek, vsrc->clone, vsrc->print, vsrc->destroy);
+    vector_init(vdst, vsrc->capacity, vsrc->size, vsrc->init, vsrc->cmp, vsrc->seek, vsrc->clone, vsrc->print, vsrc->destroy);
     for(i = 0, max = MIN_ELEMENTS; i < vsrc->next; vdst->next++, i++){
         if(i + 1 == max){
             max *= 2;

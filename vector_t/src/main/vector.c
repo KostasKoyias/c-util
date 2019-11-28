@@ -4,7 +4,7 @@
 #include "vector.h"
 #include "utils.h"
 
-int vector_init(void *vector, size_t size, 
+int vector_init(void *vector, int capacity, size_t size, 
                 int (*init)(void *, va_list), int (*seek)(const void*, const void*),
                 int (*cmp)(const void*, const void*), void (*clone)(void*, const void*),
                 void (*print)(void *), void (*destroy)(void *)){
@@ -15,7 +15,7 @@ int vector_init(void *vector, size_t size,
 
     // meta-data
     v->next = 0;
-    v->capacity = MIN_ELEMENTS;
+    v->capacity = capacity < MIN_ELEMENTS ? MIN_ELEMENTS : capacity;
     v->size = size;
 
     // actual content

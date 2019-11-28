@@ -14,8 +14,8 @@ int node_free(node_t *node, void (*destroy)(void *)){
     return 0;
 }
 
-void list_init(void *lst, const char *name, const size_t node_size, int (*init)(void*, va_list), 
-            int (*cmp)(const void*, const void*), int (*print)(const void*), void (*destroy)(void*)){
+int list_init(void *lst, const char *name, const size_t node_size, int (*init)(void*, va_list), 
+            int (*cmp)(const void*, const void*), void (*print)(void*), void (*destroy)(void*)){
         list_t *list = lst;
         assert(list && init);
 
@@ -33,6 +33,7 @@ void list_init(void *lst, const char *name, const size_t node_size, int (*init)(
         list->cmp = cmp;
         list->print = print;
         list->destroy = destroy != NULL ? destroy : free;
+        return 0;
 }
 
 int list_is_empty(const void *lst){
@@ -166,9 +167,9 @@ int list_delete(void* lst, const void *data){
 }
 
 // print all nodes of a list 
-void list_print(const void *lst){
+void list_print(void *lst){
     const list_t *list = lst;
-    assert(list && list->head && list->print);
+    assert(list && list->print);
 
     fprintf(stdout, "\n\e[1;4m%s\e[0m\n * length: %d\n * node_size: %d\e[0m\n",
              list->name, list->length, (int)list->node_size);

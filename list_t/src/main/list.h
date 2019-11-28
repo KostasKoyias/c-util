@@ -11,7 +11,6 @@
     #include <stdarg.h>
     #define DEFAULT_NAME "No name list"
 
-
     typedef struct node{
         void *data;
         struct node *next;
@@ -31,13 +30,14 @@
         // member methods for specific type
         int (*cmp)(const void*, const void*);
         int (*init)(void*, va_list);
-        int (*print)(const void*);
+        void (*print)(void*);
         void (*destroy)(void *);
     }list_t;
 
     // basic list methods
-    void list_init(void *, const char *, const size_t, int (*)(void *, va_list),
-                 int (*)(const void *, const void*), int (*)(const void*), void (*)(void *));
+    int list_init(void *, const char *, const size_t, int (*)(void *, va_list),
+                 int (*)(const void *, const void*), void (*)(void*), void (*)(void *));
+    int list_init_wrap(void *, va_list);
     int list_is_empty(const void *);
     void* list_search(const void *, const void* data);
 
@@ -49,12 +49,11 @@
     node_t *list_pop(void *);
     int list_delete(void *, const void*);
 
-    void list_print(const void *);
+    void list_print(void *);
     void list_free(void *);
 
     // utility methods
-    int list_map(void *, int (*)(void *));
-    int list_for_each(const void *, int (*)(const void *));
+    int list_for_each(const void *, void (*)(void *));
     int list_reduce(void *, int, int (*)(void *, const int));
     node_t *list_best(void *, uint8_t);
 

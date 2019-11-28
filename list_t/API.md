@@ -16,8 +16,7 @@
 | `list_print`   | Display all elements of a list using the 'print' method provided.                                                                |
 | `list_free`    | Free all resources allocated for this list, using the 'free_data' to release each node or [free](https://linux.die.net/man/3/free) if none specified.|
 | `list_reduce`  | Iterate through the list and update a total value, passed by address from the caller.                                            |
-| `list_foreach` | Apply a non-modifiable function to each node of the list.                                                                        |
-| `list_map`     | Apply a value-modifying function to each node of the list.                                                                       |
+| `list_foreach` | Apply a function to each node of the list.                                                                        |
 | `list_best`    | Retrieve the maximum or minimum valued element of the list. Member method 'cmp' needs to be provided.                            |
 
 ## Type methods

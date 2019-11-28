@@ -17,7 +17,7 @@ int main(){
     srand(time(NULL));
 
     // initialize vector    
-    vector_init(&v, sizeof(person_t), init_wrapper, NULL, cmp, NULL, print, destroy);
+    vector_init(&v, 0, sizeof(person_t), init_wrapper, NULL, cmp, NULL, print, destroy);
     for(int i = 0; i < PEOPLE; i++)
         vector_insert(&v, 0, rank = rand() % MAX_RANK, names[i]);
     vector_print(&v);

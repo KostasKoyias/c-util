@@ -21,7 +21,7 @@
     }vector_t;
 
     // basic methods
-    int vector_init(void*, size_t, int (*)(void *, va_list), 
+    int vector_init(void*, int, size_t, int (*)(void *, va_list), 
                     int (*)(const void*, const void*), int (*)(const void*, const void*),
                     void (*)(void*, const void*), void (*)(void *), void (*)(void *));
     int vector_insert(void*, int, ...);

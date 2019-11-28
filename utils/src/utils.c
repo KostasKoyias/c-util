@@ -1,3 +1,4 @@
+#include <stdlib.h>
 #include "utils.h"
 
 // return a random number of $bits bits

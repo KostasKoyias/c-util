@@ -33,12 +33,10 @@ int init(void *person, const void *name){
     return 0;
 }
 
-int print(const void *p1){
+void print(void *p1){
     const person_t *pp1 = (person_t*)p1;
     assert(p1);
-
     fprintf(stdout, "\nId: %d\nName: %s\n", pp1->id, pp1->name);
-    return 0;
 }
 
 void destroy(void *person){
