@@ -23,6 +23,7 @@
 |--------------|----------------------------------------------------------------------------------------------------------------------------------|
 | `vector_reduce`  | Iterate through the vector and update a total value, passed by address from the caller.                                            |
 | `vector_qsort`   | Quick sort the vector using the 'cmp' method provided on initialization.                                         |
+| `vector_bsearch` | Binary search on the vector using the `cmp` method provided on initialization. Pass arguments for comparison object to be created with `init`. Use only when vector is sorted.                                          |
 | `vector_foreach` | Apply a non-modifiable function to each node of the vector.                          |
 | `vector_cmp`     | Compare 2 vectors for equality. Two vectors of the same node size, filled positions(not total length) and 'cmp' member methods are equal if 'cmp' returns 0 for all items on same positions.|
 | `vector_clone` | Copy a vector's content and meta-data to an **uninitialized** one, which shall later be freed.                          |

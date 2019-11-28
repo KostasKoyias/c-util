@@ -37,6 +37,7 @@
     // utilities and advanced methods
     void vector_reverse(void *);
     void vector_qsort(void *);
+    void *vector_bsearch(void *, ...);
     void vector_reduce(void *, void *, void (*)(void*, void*));
     void vector_foreach(void *, void (*)(void *));
     int vector_cmp(const void *, const void *);
