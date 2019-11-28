@@ -18,7 +18,7 @@ int main(){
     // initialize vector providing member methods for type 'person_t', not all of them are mandatory   
     vector_init(&v, sizeof(person_t), init_wrapper, seek, cmp, clone, print, destroy);
     for(int i = 0; i < PEOPLE; i++)
-        vector_insert(&v, rand() % MAX_RANK, names[i]);
+        vector_insert(&v, 0, rand() % MAX_RANK, names[i]);
     vector_print(&v);
     fprintf(stdout, "-------------------\n");
 

@@ -7,12 +7,12 @@
 | Name         | Description                                                                        |
 |--------------|----------------------------------------------------------------------------------------------------------------------------------|
 | `vector_init`    | Initialize a vector with an initial capacity of 2, providing all member methods necessary and size in bytes of a particular data type.|
-| `vector_insert`  | Insert an instance of the type specified into the **end** of a vector. A pointer to the arguments will be passed to the init function provided.     |
-| `vector_remove`  | Remove the element at the specified position in the vector. Shifts any subsequent elements to the left      |
-| `vector_delete`  | Remove the first matching element based on the `vector->seek` method. Shifts any subsequent elements to the left      |
+| `vector_insert`  | Insert an instance of the type specified into the **end** of a vector. A pointer to the arguments will be passed to the init function provided. If vector is full then capacity will be increased either by 1 or by a factor 2(i.e vector will double it's size). <br/><span style="color: red">Only increase by 1 if insertions are rare.</span>|
+| `vector_remove`  | Remove the element at the specified position in the vector. Shifts any subsequent elements to the left.      |
+| `vector_delete`  | Remove the first matching element based on the `vector->seek` method. Shifts any subsequent elements to the left.      |
 | `vector_isfull`  | Return 1 if vector is full or else 0.                                                |
 | `vector_get`     | Retrieve by index an item from a vector.            |
-| `vector_seek`    | Get a pointer to the first matching item of a vector, `vector->seek` member method needs to be provided on initialization. If element exists, position is stored where the last argument points to |
+| `vector_seek`    | Get a pointer to the first matching item of a vector, `vector->seek` member method needs to be provided on initialization. If element exists, position is stored where the last argument points to. |
 | `vector_print`   | Display all elements of a vector using the 'print' method provided.                  |
 | `vector_shrink`  | Reduce the capacity of the vector to be equal to fit the current positions taken. Use when vector is final.|
 | `vector_free`    | Free all resources allocated for this vector, using the 'free_data' to release each node or [free](https://linux.die.net/man/3/free) if none specified.|

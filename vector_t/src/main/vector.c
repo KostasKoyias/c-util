@@ -31,19 +31,19 @@ int vector_init(void *vector, size_t size,
     return MIN_ELEMENTS;
 }
 
-int vector_insert(void *vector, ...){
+int vector_insert(void *vector, int single, ...){
     vector_t *v = vector;
     va_list props;
     assert(vector);
 
     // double vector capacity if full
     if(vector_isfull(vector)){
-        v->capacity = v->capacity * 2;
+        v->capacity = single ? v->capacity + 1 : v->capacity * 2;
         v->data = realloc(v->data, v->size * v->capacity);
     }
 
     // use the appropriate constructor to initialize the new item
-    va_start(props, vector);
+    va_start(props, single);
     v->init(v->data + ((v->next++) * v->size), props);
     va_end(props);
     return 0;
