@@ -36,26 +36,26 @@
     }list_t;
 
     // basic list methods
-    int list_init(list_t *, const char *, const size_t, int (*)(void *, va_list),
+    void list_init(void *, const char *, const size_t, int (*)(void *, va_list),
                  int (*)(const void *, const void*), int (*)(const void*), void (*)(void *));
-    int list_is_empty(const list_t*);
-    void* list_search(const list_t*, const void* data);
+    int list_is_empty(const void *);
+    void* list_search(const void *, const void* data);
 
-    int list_add(list_t*, va_list, uint8_t);
-    int list_insert(list_t*, ...);
-    int list_push(list_t*, ...);
+    int list_add(void *, va_list, uint8_t);
+    int list_insert(void *, ...);
+    int list_push(void *, ...);
 
-    void *list_peek(list_t *);
-    node_t *list_pop(list_t*);
-    int list_delete(list_t*, const void*);
+    void *list_peek(void *);
+    node_t *list_pop(void *);
+    int list_delete(void *, const void*);
 
-    int list_print(const list_t*);
-    int list_free(list_t*);
+    void list_print(const void *);
+    void list_free(void *);
 
     // utility methods
-    int list_map(list_t*, int (*)(void *));
-    int list_for_each(const list_t*, int (*)(const void *));
-    int list_reduce(list_t *, int, int (*)(void *, const int));
-    node_t *list_best(list_t *, uint8_t);
+    int list_map(void *, int (*)(void *));
+    int list_for_each(const void *, int (*)(const void *));
+    int list_reduce(void *, int, int (*)(void *, const int));
+    node_t *list_best(void *, uint8_t);
 
 #endif

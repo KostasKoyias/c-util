@@ -6,8 +6,7 @@
 
 int node_free(node_t *node, void (*destroy)(void *)){
     void (*destructor)(void *) = destroy ? destroy : free;
-    if(node == NULL)
-        return -1;
+    assert(node);
 
     destructor(node->data);
     reset(node->data);
@@ -15,10 +14,10 @@ int node_free(node_t *node, void (*destroy)(void *)){
     return 0;
 }
 
-int list_init(list_t *list, const char *name, const size_t node_size, int (*init)(void*, va_list), 
+void list_init(void *lst, const char *name, const size_t node_size, int (*init)(void*, va_list), 
             int (*cmp)(const void*, const void*), int (*print)(const void*), void (*destroy)(void*)){
-        if(list == NULL || init == NULL || node_size < 0)
-            return -1;
+        list_t *list = lst;
+        assert(list && init);
 
         // set common initial list attributes 
         list->head = list->tail = NULL;
@@ -34,23 +33,21 @@ int list_init(list_t *list, const char *name, const size_t node_size, int (*init
         list->cmp = cmp;
         list->print = print;
         list->destroy = destroy != NULL ? destroy : free;
-        
-        return 0;
 }
 
-int list_is_empty(const list_t *list){
-    if(list == NULL)
-        return -1;
+int list_is_empty(const void *lst){
+    const list_t *list = lst;
+    assert(list);
     return list->head == NULL;
 }
 
 /*  check whether an instance of a certain type belongs to a list, comparing it with the list's elements 
     using a type-specific comparison function
     returns a pointer to the item's position if it exists or NULL if it does not */
-void *list_search(const list_t* list, const void *data){
+void *list_search(const void * lst, const void *data){
+    const list_t *list = lst;
     node_t* parser;
-    if(list->cmp == NULL || list == NULL || list->head == NULL || data == NULL)
-        return NULL;
+    assert(list && list->cmp && list->head && data);
 
     for(parser = list->head; parser != NULL; parser = parser->next){
         if(list->cmp(parser->data, data) == 0)
@@ -60,28 +57,30 @@ void *list_search(const list_t* list, const void *data){
 }
 
 // insert a node to the beginning of a linked list
-int list_push(list_t *list, ...){
+int list_push(void *lst, ...){
+    list_t *list = lst;
     va_list props;
-    va_start(props, list);
+    va_start(props, lst);
     list_add(list, props, 1);
     va_end(props);
     return 0;
 }
 
 // insert a node to the end of a linked list
-int list_insert(list_t *list, ...){
+int list_insert(void *lst, ...){
+    list_t *list = lst;
     va_list props;
-    va_start(props, list);
+    va_start(props, lst);
     list_add(list, props, 0);
     va_end(props);
     return 0;
 }
 
 // insert an item in the list, initialize it's value using function 'init', which was passed as a parameter
-int list_add(list_t* list, va_list props, uint8_t at_front){
+int list_add(void* lst, va_list props, uint8_t at_front){
+    list_t *list = lst;
     node_t *node;
-    if(list == NULL || list->init == NULL)
-        return -1;
+    assert(list && list->init);
 
     // allocate space for a new node
     if((node = malloc(sizeof(node_t))) == NULL)
@@ -119,17 +118,17 @@ int list_add(list_t* list, va_list props, uint8_t at_front){
 }
 
 // retrieves, but does not remove, the head of a linked list.
-void *list_peek(list_t *list){
-    if(list == NULL)
-        return NULL;
+void *list_peek(void *lst){
+    list_t *list = lst;
+    assert(list);
     return list->head;
 }
 
 // pop a node from the top of a linked list
-node_t *list_pop(list_t *list){
+node_t *list_pop(void *lst){
+    list_t *list = lst;
     node_t *node;
-    if(list == NULL || list->head == NULL)
-        return NULL;
+    assert(list && list->head);
 
     node = list->head;
     if(node == list->tail)
@@ -140,11 +139,10 @@ node_t *list_pop(list_t *list){
 }
 
 // delete an element of the list, returns 0 in success and -1 if the element given is not a list's member
-int list_delete(list_t* list, const void *data){
+int list_delete(void* lst, const void *data){
+    list_t *list = lst;
     node_t *node;
-
-    if(list == NULL || list->head == NULL || data == NULL || list->cmp == NULL)
-        return -1;
+    assert(list && list->head && data && list->cmp);
 
     // find the node to be removed
     if((node = list_search((const list_t*)list, data)) == NULL)
@@ -168,21 +166,21 @@ int list_delete(list_t* list, const void *data){
 }
 
 // print all nodes of a list 
-int list_print(const list_t *list){
-    if(list == NULL || list->head == NULL || list->print == NULL)
-        return -1;
+void list_print(const void *lst){
+    const list_t *list = lst;
+    assert(list && list->head && list->print);
 
     fprintf(stdout, "\n\e[1;4m%s\e[0m\n * length: %d\n * node_size: %d\e[0m\n",
              list->name, list->length, (int)list->node_size);
 
-    return list_for_each(list, list->print);
+    list_for_each(list, list->print);
 }
 
 // free all nodes of a list
-int list_free(list_t* list){
+void list_free(void* lst){
+    list_t *list = lst;
     node_t *parser, *temp;
-    if(list == NULL)
-        return -1;
+    assert(list);
 
     // de-allocate all memory used
     reset(list->name);
@@ -198,5 +196,4 @@ int list_free(list_t* list){
     list->destroy = NULL;
     list->head = list->tail = NULL;
     list->length = list->node_size = 0;
-    return 0;
 }
