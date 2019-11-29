@@ -48,7 +48,7 @@ int list_is_empty(const void *lst){
 void *list_search(const void * lst, const void *data){
     const list_t *list = lst;
     node_t* parser;
-    assert(list && list->cmp && list->head && data);
+    assert(list && list->cmp && data);
 
     for(parser = list->head; parser != NULL; parser = parser->next){
         if(list->cmp(parser->data, data) == 0)
@@ -174,7 +174,7 @@ void list_print(void *lst){
     fprintf(stdout, "\n\e[1;4m%s\e[0m\n * length: %d\n * node_size: %d\e[0m\n",
              list->name, list->length, (int)list->node_size);
 
-    list_for_each(list, list->print);
+    list_foreach(list, list->print);
 }
 
 // free all nodes of a list

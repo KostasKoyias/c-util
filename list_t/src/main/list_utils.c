@@ -15,7 +15,7 @@ int list_init_wrap(void *list, va_list props){
 }
 
 // apply a function to each element of the list
-int list_for_each(const void *lst, void (*function)(void*)){
+int list_foreach(const void *lst, void (*function)(void*)){
     const list_t *list = lst;
     node_t *parser;
     assert(lst && function);

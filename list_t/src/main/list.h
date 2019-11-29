@@ -53,7 +53,7 @@
     void list_free(void *);
 
     // utility methods
-    int list_for_each(const void *, void (*)(void *));
+    int list_foreach(const void *, void (*)(void *));
     int list_reduce(void *, int, int (*)(void *, const int));
     node_t *list_best(void *, uint8_t);
 

@@ -3,12 +3,11 @@
 #include "map.h"
 
 int map_init(void *map, size_t size, int (*clone)(void*, va_list), 
-            int (*cmp)(const void*, const void*), void (*print)(void*),
-            uint64_t (*get_key)(const void*), void (*destroy)(void *)){
+            int (*cmp)(const void*, const void*), void (*print)(void*), 
+            void (*destroy)(void *)){
     map_t *m = map;
-    assert(map && get_key);
+    assert(map);
 
-    m->get_key = get_key;
     m->load_factor = LOAD_FACTOR;
     m->destroy = destroy ? destroy : free;
 
@@ -25,10 +24,12 @@ void map_put(void *map, ...){
     map_t *m = map;
     assert(map);
 
+    // get key from properties, it is always the first one
     va_start(props, map);
     key = va_arg(props, uint64_t);
     va_end(props);
 
+    // reset properties pointer to pass into constructor
     va_start(props, map);
     bucket = key % m->buckets.next;
     list_add(vector_get(&(m->buckets), bucket), props, 0);
@@ -45,15 +46,35 @@ void *map_get(void *map, uint64_t key){
     return node->data;
 }
 
-int map_replace(void *map, void *obj){
+int map_replace(void *map, ...){
+    va_list props;
+    uint64_t key;
     map_t *m = map;
+    int rv;
     void *dst;
+    assert(map);
 
-    assert(map && obj);
-    if((dst = map_get(map, m->get_key(obj))) == NULL)
+    // get key
+    va_start(props, map);
+    key = va_arg(props, uint64_t);
+    va_end(props);
+    if((dst = map_get(map, key)) == NULL)
         return -1;
 
-    return ((list_t *)vector_get(&(m->buckets), 0))->init(dst, obj);
+    // release resources allocated for the previous values
+    va_start(props, map);
+    ((list_t *)vector_get(&(m->buckets), 0))->destroy(dst);
+
+    // replace with the properties requested
+    rv = ((list_t *)vector_get(&(m->buckets), 0))->init(dst, props);
+    va_end(props);
+    return rv;
+}
+
+int map_remove(void *map, uint64_t key){
+    map_t *m = map;
+    assert(map);
+    return list_delete(vector_get(&(m->buckets), key % m->buckets.next), &key);
 }
 
 void map_print(const void *map){
@@ -68,4 +89,12 @@ void map_free(void *map){
     map_t *m = map;
     assert(map);
     vector_free(&(m->buckets));
+}
+
+void map_foreach(void *map, void (*callback)(void *)){
+    map_t *m = map;
+    assert(map && callback);
+
+    for(uint64_t i = 0; i < m->buckets.next; i++)
+        list_foreach(vector_get(&(m->buckets), i), callback);
 }
