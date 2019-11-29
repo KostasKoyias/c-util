@@ -4,7 +4,7 @@
 #include "vector.h"
 #include "utils.h"
 
-int vector_init(void *vector, size_t size, 
+int vector_init(void *vector, int capacity, size_t size, 
                 int (*init)(void *, va_list), int (*seek)(const void*, const void*),
                 int (*cmp)(const void*, const void*), void (*clone)(void*, const void*),
                 void (*print)(void *), void (*destroy)(void *)){
@@ -15,7 +15,7 @@ int vector_init(void *vector, size_t size,
 
     // meta-data
     v->next = 0;
-    v->capacity = MIN_ELEMENTS;
+    v->capacity = capacity < MIN_ELEMENTS ? MIN_ELEMENTS : capacity;
     v->size = size;
 
     // actual content
@@ -31,19 +31,19 @@ int vector_init(void *vector, size_t size,
     return MIN_ELEMENTS;
 }
 
-int vector_insert(void *vector, ...){
+int vector_insert(void *vector, int single, ...){
     vector_t *v = vector;
     va_list props;
     assert(vector);
 
     // double vector capacity if full
     if(vector_isfull(vector)){
-        v->capacity = v->capacity * 2;
+        v->capacity = single ? v->capacity + 1 : v->capacity * 2;
         v->data = realloc(v->data, v->size * v->capacity);
     }
 
     // use the appropriate constructor to initialize the new item
-    va_start(props, vector);
+    va_start(props, single);
     v->init(v->data + ((v->next++) * v->size), props);
     va_end(props);
     return 0;

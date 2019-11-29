@@ -10,7 +10,7 @@
     int compare(const void*, const void*);
     int init_wrapper(void *, va_list);
     int init(void*, const void*);
-    int print(const void*);
+    void print(void*);
     void destroy(void *);
     int sum_ids(void*, int);
     int prod_ids(void*, int);

@@ -23,6 +23,28 @@ void vector_qsort(void *vector){
     qsort(v->data, v->next, v->size, v->cmp);
 }
 
+void *vector_bsearch(void *vector, ...){
+    vector_t *v = vector;
+    void *obj, *rv;
+    va_list props;
+    assert(vector && v->init && v->cmp);
+
+    // create an object to look for in the vector
+    va_start(props, vector);
+    obj = malloc(v->size);
+    v->init(obj, props);
+    va_end(props);
+
+    // use binary search to locate the object, vector must be sorted
+    rv = bsearch(obj, v->data, v->next, v->size, v->cmp);
+
+    // free temporary object created for the search
+    if(v->destroy)
+        v->destroy(obj);
+    reset(obj);
+    return rv;
+}
+
 void vector_reverse(void *vector){
     vector_t *v = vector;
     assert(vector);
@@ -57,7 +79,7 @@ void vector_clone(void *dst, const void *src){
     int i, max;
     assert(dst && src && vsrc->clone);
 
-    vector_init(vdst, vsrc->size, vsrc->init, vsrc->cmp, vsrc->seek, vsrc->clone, vsrc->print, vsrc->destroy);
+    vector_init(vdst, vsrc->capacity, vsrc->size, vsrc->init, vsrc->cmp, vsrc->seek, vsrc->clone, vsrc->print, vsrc->destroy);
     for(i = 0, max = MIN_ELEMENTS; i < vsrc->next; vdst->next++, i++){
         if(i + 1 == max){
             max *= 2;

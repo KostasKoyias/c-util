@@ -21,10 +21,10 @@
     }vector_t;
 
     // basic methods
-    int vector_init(void*, size_t, int (*)(void *, va_list), 
+    int vector_init(void*, int, size_t, int (*)(void *, va_list), 
                     int (*)(const void*, const void*), int (*)(const void*, const void*),
                     void (*)(void*, const void*), void (*)(void *), void (*)(void *));
-    int vector_insert(void*, ...);
+    int vector_insert(void*, int, ...);
     void *vector_get(void*, uint64_t);
     void *vector_seek(void*, const void*, uint64_t*);
     int vector_isfull(const void *);
@@ -37,6 +37,7 @@
     // utilities and advanced methods
     void vector_reverse(void *);
     void vector_qsort(void *);
+    void *vector_bsearch(void *, ...);
     void vector_reduce(void *, void *, void (*)(void*, void*));
     void vector_foreach(void *, void (*)(void *));
     int vector_cmp(const void *, const void *);

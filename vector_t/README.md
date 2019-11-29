@@ -1,6 +1,7 @@
 # README #
 
-**vector_t** is a dynamic one-dimensional array, doubling it's size on insertion
+**vector_t** is a dynamic one-dimensional array,
+doubling it's size on insertion<sup style="font-weight: bolder;color: #1d9fcb">[1](###notes)</sup>
 if full, therefore having constant amortized insertion complexity.
 
 ## How it's set ##
@@ -48,3 +49,10 @@ to run the sample.
 
 Name:  Kostas Koyias  
 Email: sdi1500071@di.uoa.gr
+
+### Notes ###
+
+1. Insertion on a full vector can, if requested, re-allocate space
+for a single item instead of doubling the size of the vector.
+This is not encouraged in most cases.
+Use this only if insertions are rare.
