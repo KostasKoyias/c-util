@@ -15,7 +15,7 @@
 | `vector_seek`    | Get a pointer to the first matching item of a vector, `vector->seek` member method needs to be provided on initialization. If element exists, position is stored where the last argument points to. |
 | `vector_print`   | Display all elements of a vector using the 'print' method provided.                  |
 | `vector_shrink`  | Reduce the capacity of the vector to be equal to fit the current positions taken. Use when vector is final.|
-| `vector_free`    | Free all resources allocated for this vector, using the 'free_data' to release each node or [free](https://linux.die.net/man/3/free) if none specified.|
+| `vector_free`    | Free all resources allocated for this vector, using the `vector->destroy` to release each node, if provided on initialization.|
 
 ### Advanced
 
@@ -35,7 +35,6 @@
 | `init(mandatory)`| Initialize an instance. This function will be called by vector_insert passing a `va_list` pointer to all arguments provided.                                 |
 | `cmp`            | Compare two instances of the **same class**. Used to sort vectors by comparison. |
 | `seek`           | Compare an instance with a value(not necessarily of the same type e.g it can be just an id pointer). Used to seek for a certain item in the vector. |
-| `print`          | Display an instance of this type. Called by vector_print for each vector element.                              |
+| `print`          | Display an instance of this type. Called by `vector_print` for each vector element.                              |
 | `clone`          | Given a pointer to an instance of the vector type, initialize it by cloning an other's payload. Used to clone a vector by cloning all items it contains.     |
-| `print`          | Display an item of the vector any way you wish, `vector_print` will use this function for each element it contains.                                |
-| `destroy`        | De-allocate all resources used for a certain instance of this vector. Those were allocated during 'init'.      |
+| `destroy`        | De-allocate all resources used for a certain instance of this vector. Those were allocated during `init`.      |
