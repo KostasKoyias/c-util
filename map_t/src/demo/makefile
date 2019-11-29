@@ -12,15 +12,16 @@ PRSN_OBJS = $(PERSON)/person.o map_person.o
 LIST_OBJS = $(LIST)/list.o $(LIST)/list_utils.o 
 VECTOR_OBJS = $(VECTOR)/vector.o $(VECTOR)/vector_utils.o 
 UTILS_OBJS = $(UTILS)/mem_utils.o  $(UTILS)/str_utils.o $(UTILS)/error_utils.o $(UTILS)/utils.o 
-OBJS = $(MAIN)/map.o map_person.o $(PRSN_OBJS) $(LIST_OBJS) $(UTILS_OBJS) $(VECTOR_OBJS)
-OUT = main
+OBJS = $(MAIN)/map.o $(MAIN)/map_utils.o map_person.o $(PRSN_OBJS) $(LIST_OBJS) $(UTILS_OBJS) $(VECTOR_OBJS)
+OUT = main eval
 
 all: $(OUT)  
 
 # main program
 main: $(OBJS) $(HDRS)
+eval: $(OBJS) $(HDRS)
 info:
-	@echo "\e[1m-->\e[0m Run demos: ./main"
+	@echo "\e[1m-->\e[0m Run demo: ./main"
 
 clean: 
 	rm -f $(OBJS) $(OUT) 

@@ -149,6 +149,15 @@ int list_delete(void* lst, const void *data){
     if((node = list_search((const list_t*)list, data)) == NULL)
         return -1;
 
+    node_erase(list, node);
+    node_free(node, list->destroy);
+    list->length--;
+    return 0;
+}
+
+void node_erase(list_t *list, node_t *node){
+    assert(list && node);
+
     // update head & tail
     if(node == list->head)
         list->head = node->next;
@@ -160,10 +169,7 @@ int list_delete(void* lst, const void *data){
         node->prev->next = node->next;
     if(node->next != NULL)
         node->next->prev = node->prev;
-    
-    node_free(node, list->destroy);
-    list->length--;
-    return 0;
+    node->next = node->prev = NULL;
 }
 
 // print all nodes of a list 

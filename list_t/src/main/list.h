@@ -16,7 +16,6 @@
         struct node *next;
         struct node *prev;
     }node_t;
-    int node_free(node_t*, void (*)(void* ));
 
     typedef struct list{
 
@@ -33,6 +32,10 @@
         void (*print)(void*);
         void (*destroy)(void *);
     }list_t;
+
+    // node methods
+    void node_erase(list_t *, node_t *);
+    int node_free(node_t*, void (*)(void* ));
 
     // basic list methods
     int list_init(void *, const char *, const size_t, int (*)(void *, va_list),

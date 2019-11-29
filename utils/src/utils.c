@@ -9,3 +9,10 @@ uint64_t rand_bits(uint8_t bits){
         num += (num << 1) + (rand() % 2);
     return num;
 }
+
+int math_round(float x){
+    if(x < 0)
+        return (-1) * (((-1) * x + 0.5)/1);
+    else
+        return (x + 0.5)/1;
+}

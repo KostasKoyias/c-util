@@ -20,5 +20,6 @@
 
     // general-purpose utils
     uint64_t rand_bits(uint8_t);
+    int math_round(float);
     
 #endif
