@@ -31,6 +31,14 @@ Please take a look at the corresponding
 documentation for the [implementation](./vector_t/README.md)
 and the [API](./vector_t/API.md)  to find out more.
 
+### map_t ###
+
+A linked hash-map implemented as a vector of doubly linked-lists,
+that can store any data-type, primitive or user-defined,
+based on a key field, using
+[linear hashing](http://cgi.di.uoa.gr/~ad/M149/e_ds_linearhashing.pdf)
+in order to preserve load factor under a certain threshold at all times.
+
 ## Utilities ##
 
 Under `./utils/src` one can find many utility functions related to
