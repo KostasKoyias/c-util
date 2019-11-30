@@ -15,7 +15,7 @@
 | `list_pop`     | Remove the head (first element) of this list.                                                                                    |
 | `list_delete`  | Delete the requesting item. Member method 'cmp' needs to be provided.                                                            |
 | `list_search`  | Return a pointer to an item or NULL if none matches the criteria. Member method 'cmp' needs to be provided.                      |
-| `list_print`   | Display all elements of a list using the 'print' method provided.                                                                |
+| `list_print`   | Display all elements of a list using the `list->print` method provided.                                                                |
 | `list_free`    | Free all resources allocated for this list, using the `list->free_data` if provided.|
 
 ### Advanced methods
@@ -23,8 +23,9 @@
 | Name         | Description                                                                                                                      |
 |--------------|----------------------------------------------------------------------------------------------------------------------------------|
 | `list_reduce`  | Iterate through the list and update a total value, passed by address from the caller.                                            |
-| `list_sort`  | Sorts elements of the list. Method `list->cmp` must have been provided on initialization.                                            |
-| `list_reverse`  | Reverse the order of the elements in the specified list.                                            |
+| `list_sort`    | Given a list and a pair of node pointers of that list, swap the nodes.                                            |
+| `list_sort`    | Sorts elements of the list. Method `list->cmp` must have been provided on initialization.                                            |
+| `list_reverse` | Reverse the order of the elements in the specified list.                                            |
 | `list_foreach` | Apply a function to each node of the list.                                                                        |
 | `list_best`    | Retrieve the maximum or minimum valued element of the list. Member method 'cmp' needs to be provided.                            |
 

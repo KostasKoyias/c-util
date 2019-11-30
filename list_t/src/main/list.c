@@ -4,16 +4,6 @@
 #include "list.h"
 #include "utils.h"
 
-int node_free(node_t *node, void (*destroy)(void *)){
-    void (*destructor)(void *) = destroy ? destroy : free;
-    assert(node);
-
-    destructor(node->data);
-    reset(node->data);
-    reset(node);
-    return 0;
-}
-
 int list_init(void *lst, const char *name, const size_t node_size, int (*init)(void*, va_list), 
             int (*cmp)(const void*, const void*), void (*print)(void*), void (*destroy)(void*)){
         list_t *list = lst;
@@ -155,31 +145,20 @@ int list_delete(void* lst, const void *data){
     return 0;
 }
 
-void node_erase(list_t *list, node_t *node){
-    assert(list && node);
+void list_meta(void *list){
+    list_t *l = list;
+    assert(list);
 
-    // update head & tail
-    if(node == list->head)
-        list->head = node->next;
-    if(node == list->tail)
-        list->tail = node->prev;
-
-    // update next & previous nodes
-    if(node->prev != NULL)
-        node->prev->next = node->next;
-    if(node->next != NULL)
-        node->next->prev = node->prev;
-    node->next = node->prev = NULL;
+    fprintf(stdout, "\n\e[1;4m%s\e[0m\n * length: %d\n * node_size: %d\e[0m\n",
+             l->name, l->length, (int)l->node_size);
 }
 
 // print all nodes of a list 
 void list_print(void *lst){
-    const list_t *list = lst;
+    list_t *list = lst;
     assert(list && list->print);
 
-    fprintf(stdout, "\n\e[1;4m%s\e[0m\n * length: %d\n * node_size: %d\e[0m\n",
-             list->name, list->length, (int)list->node_size);
-
+    list_meta(lst);
     list_foreach(list, list->print);
 }
 

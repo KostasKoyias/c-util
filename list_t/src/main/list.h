@@ -34,8 +34,13 @@
     }list_t;
 
     // node methods
-    void node_erase(list_t *, node_t *);
-    int node_free(node_t*, void (*)(void* ));
+    void node_erase(void *, void *);
+    int node_free(void*, void (*)(void* ));
+    void node_update(void *, void *, void*);
+    void node_replace(void *, void*);
+    int node_prev_swap(void *, void*);
+    int node_next_swap(void *, void*);
+    void node_swap(void*, void *);
 
     // basic list methods
     int list_init(void *, const char *, const size_t, int (*)(void *, va_list),
@@ -52,12 +57,17 @@
     node_t *list_pop(void *);
     int list_delete(void *, const void*);
 
+    void list_meta(void *);
     void list_print(void *);
     void list_free(void *);
 
     // utility methods
     void list_reverse(void *);
+    void list_swap(void *, void *, void *);
+    void list_sort(void *);
+    void list_print_rev(void *);
     int list_foreach(const void *, void (*)(void *));
+    int list_foreach_from(const void *, void (*)(void *), int);
     int list_reduce(void *, int, int (*)(void *, const int));
     node_t *list_best(void *, uint8_t);
 
