@@ -10,20 +10,16 @@ The interface can be found in `list.h`.
 To create a doubly linked list of a certain type you need to define
 some 'member methods' of the particular type a list node will point to.
 After that, you can create a list of this type and apply
-whatever function(e.g list_insert, list_map etc.) on it.
+whatever function(e.g list_insert, list_reverse etc.) on it.
 
 ## How to use it ##
 
 In order to use a generic list(`list_t`) in one of your programs,
 
-* first compile
-
-  * list.c
-  * list_utils.c and
-  * utils.c
+* first compile using the [makefile](./src/demo/makefile) provided
 
 * then link the corresponding .o files to your project and finally
-* *\#include `list.h`* in all files using a list_t.
+* *\#include `list.h` and `utils.h`* in all files using a list_t.
 
 Before using this library, take a good look at the [API](./API.md).
 It's easy to understand and it will help you learn how
