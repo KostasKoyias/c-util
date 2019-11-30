@@ -23,10 +23,13 @@ int main(){
 
     // delete all records having odd ids
     i = 1;
-    fprintf(stdout, "\n>> Removing user with id = %d\n", i);
+    fprintf(stdout, "\n\e[1;4m>> Removing user with id = %d\e[0m", i);
     list_delete(&list, &i);
-    
-    // print again
+    list_print(&list);
+
+    // reverse list
+    fprintf(stdout, "\e[1;4m\n>> Reversing the list\e[0m");
+    list_reverse(&list);
     list_print(&list);
 
     // free resources

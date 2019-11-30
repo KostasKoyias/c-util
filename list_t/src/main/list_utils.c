@@ -2,6 +2,7 @@
 #include <string.h>
 #include <assert.h>
 #include "list.h"
+#include "utils.h"
 
 // constructor wrapper that matches the general-purpose prototype for constructors of this library
 int list_init_wrap(void *list, va_list props){
@@ -49,4 +50,13 @@ node_t *list_best(void *lst, uint8_t max_or_min){
             best = i->next;
 
     return best;
+}
+
+void list_reverse(void *list){
+    list_t *l = list;
+    assert(list);
+
+    for(node_t *parser = l->tail; parser != NULL; parser = parser->next)
+        memswap(&(parser->next), &(parser->prev), sizeof(node_t *));
+    memswap(&(l->head), &(l->tail), sizeof(node_t *));
 }
