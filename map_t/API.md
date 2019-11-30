@@ -9,7 +9,7 @@
 | `map_get`     | Retrieve entry by key.            |
 | `map_remove`  | Remove entry by key.      |
 | `map_print`   | Print meta-data(max load_factor & capacity) of the map, as well as the content, which is a [vector](../vector_t/README.md) having a dynamic [doubly-linked-list](../list_t/README.md) for each bucket.|
-| `map_display` | A different printing approach, neglecting the built-in printing methods of the internal data structures, using a much simpler display   .|
+| `map_display` | A different printing approach, neglecting the built-in printing methods of the internal data structures, displaying keys only for each bucket   .|
 | `map_free`    | Free all resources allocated for this map, using the `map->destroy` to release each node, if provided on initialization. |
 
 ## Type methods

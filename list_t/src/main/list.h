@@ -56,6 +56,7 @@
     void list_free(void *);
 
     // utility methods
+    void list_reverse(void *);
     int list_foreach(const void *, void (*)(void *));
     int list_reduce(void *, int, int (*)(void *, const int));
     node_t *list_best(void *, uint8_t);
