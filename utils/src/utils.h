@@ -18,8 +18,12 @@
     int last_index_of(char, const char*);
 
 
-    // general-purpose utils
+    // bit-by-bit utilities
     uint64_t rand_bits(uint8_t);
+    void set_bit(uint32_t *, uint8_t);
+    uint8_t get_bit(uint32_t, uint8_t);
+
+    // math utilities
     int math_round(float);
     
 #endif

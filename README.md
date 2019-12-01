@@ -45,8 +45,9 @@ Under `./utils/src` one can find many utility functions related to
 
 * memory management
 * string manipulation
-* error handling or just
-* general purpose
+* bit manipulation
+* error handling and
+* mathematics
 
 ## How to use it ##
 

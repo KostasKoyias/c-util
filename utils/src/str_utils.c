@@ -43,3 +43,17 @@ int last_index_of(char c, const char* str){
     for(i = strlen(str)-1; i >= 0 && str[i] != c; i--);
     return i < 0 || str[i] != c ? -1 : i;
 }
+
+// for each matching part shift initial string to the left as many positions as the length of the substring
+int remove_all(char *str, char *sub){
+    if(str == NULL || sub == NULL || strlen(str) < strlen(sub))
+        return -1;
+
+    for(int i = 0; i < strlen(str)- strlen(sub) + 1; i++){
+
+        while(memcmp(str + i, sub, strlen(sub)) == 0 && strlen(str) >= strlen(sub))
+            strcpy(str + i, str + i + strlen(sub));
+    }
+
+    return 0;
+}
