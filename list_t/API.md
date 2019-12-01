@@ -23,8 +23,9 @@
 | Name         | Description                                                                                                                      |
 |--------------|----------------------------------------------------------------------------------------------------------------------------------|
 | `list_reduce`  | Iterate through the list and update a total value, passed by address from the caller.                                            |
-| `list_sort`    | Given a list and a pair of node pointers of that list, swap the nodes.                                            |
+| `list_swap`    | Given a list and a pair of node pointers of that list, swap the nodes.                                            |
 | `list_sort`    | Sorts elements of the list. Method `list->cmp` must have been provided on initialization.                                            |
+| `list_sort_distinct`| Sort & remove all duplicate entries from the list. Method `list->cmp` must have been provided on initialization.                                            |
 | `list_reverse` | Reverse the order of the elements in the specified list.                                            |
 | `list_foreach` | Apply a function to each node of the list.                                                                        |
 | `list_best`    | Retrieve the maximum or minimum valued element of the list. Member method 'cmp' needs to be provided.                            |

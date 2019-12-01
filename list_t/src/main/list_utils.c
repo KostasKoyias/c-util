@@ -106,3 +106,16 @@ void list_sort(void *list){
     }
 }
 
+void list_sort_distinct(void *list){
+    list_t *l = list;
+    node_t *i, *j, *next;
+    assert(list && l->cmp);
+
+    list_sort(list);
+    for(i = l->head; i != NULL; i = j)
+        for(j = i->next; j != NULL && l->cmp(i->data, j->data) == 0; j = next){
+            next = j->next;
+            node_erase(l, j);
+            node_free(j, l->destroy);
+        }
+}

@@ -67,7 +67,7 @@
     void list_reverse(void *);
     void list_swap(void *, void *, void *);
     void list_sort(void *);
-    void list_print_rev(void *);
+    void list_sort_distinct(void *);
     int list_foreach(const void *, void (*)(void *));
     int list_foreach_from(const void *, void (*)(void *), int);
     int list_reduce(void *, int, int (*)(void *, const int));
