@@ -1,6 +1,6 @@
 # README #
 
-**map_t** is a linked hash-map using a vector of buckets, each of them
+**hset_t** is a linked hash-set using a vector of buckets, each of them
 represented as a doubly linked-list to
 store any data-type, primitive or user-defined based on a key field,
 adding a new bucket whenever the load factor
@@ -8,16 +8,16 @@ sur-passes a threshold([linear hashing](http://cgi.di.uoa.gr/~ad/M149/e_ds_linea
 
 ## How it's set ##
 
-To create a map of a certain type you need to define
+To create a set of a certain type you need to define
 some 'member methods' of that type as described in the [API.md](./API.md).
 
 ## How to use it ##
 
-In order to use a generic map(`map_t`),
+In order to use a generic set(`hset_t`),
 
 * use the [makefile](./src/demo/makefile) included under `src/demo`
 * then link the corresponding .o files to your project and finally
-* *\#include `map.h`* in all files using a map_t
+* *\#include `set.h`* in all files using a hset_t
 
 Before using this library, take a good look at the [API](./API.md).
 It's easy to understand and it will help you learn how
@@ -32,9 +32,9 @@ with an example of a [struct person](../list_t/src/demo/person.h) are included.
 Type
 
 ```bash
-map_t >> cd src/demo
-map_t/src/demo >> make
-map_t/src/demo >> ./main
+hset_t >> cd src/demo
+hset_t/src/demo >> make
+hset_t/src/demo >> ./main
 ```
 
 to run the sample.
