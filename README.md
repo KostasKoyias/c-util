@@ -31,9 +31,14 @@ Please take a look at the corresponding
 documentation for the [implementation](./vector_t/README.md)
 and the [API](./vector_t/API.md)  to find out more.
 
-### map_t ###
+### matrix_t ###
 
-A linked hash-map implemented as a vector of doubly linked-lists,
+A simple 2D dynamic table of unsigned 64-bit integers,
+adding rows as needed on insertion.
+
+### hset_t ###
+
+A linked hash-set implemented as a vector of doubly linked-lists,
 that can store any data-type, primitive or user-defined,
 based on a key field, using
 [linear hashing](http://cgi.di.uoa.gr/~ad/M149/e_ds_linearhashing.pdf)

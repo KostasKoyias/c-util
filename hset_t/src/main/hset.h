@@ -1,5 +1,5 @@
-#ifndef _map_H_
-#define _map_H_
+#ifndef _hset_H_
+#define _hset_H_
 
     #include <stdint.h>
     #include "list.h"
@@ -21,25 +21,25 @@
         uint64_t (*get_key)(const void*);
 
 
-    }map_t;
+    }hset_t;
 
     // methods exposed in the API
-    int map_init(void *, size_t, uint64_t (*)(const void *), int (*)(void*, va_list), 
+    int hset_init(void *, size_t, uint64_t (*)(const void *), int (*)(void*, va_list), 
                  int (*)(const void*, const void*), void (*)(void*), void (*)(void*));
-    void map_put(void *, ...);
-    void *map_get(void *, uint64_t);
-    int map_replace(void *, ...);
-    int map_remove(void *, uint64_t);
-    void map_print(const void *);
-    void map_display(void *);
-    void map_free(void *);
+    void hset_put(void *, ...);
+    void *hset_get(void *, uint64_t);
+    int hset_replace(void *, ...);
+    int hset_remove(void *, uint64_t);
+    void hset_print(const void *);
+    void hset_display(void *);
+    void hset_free(void *);
 
     // internal methods used
-    int vmap_replace(void *, va_list);
-    void map_foreach(void *, void (*)(void *));
-    void map_split(void *);
-    float map_lf(void *);
-    uint64_t map_hash(void *, uint64_t);
+    int vhset_replace(void *, va_list);
+    void hset_foreach(void *, void (*)(void *));
+    void hset_split(void *);
+    float hset_lf(void *);
+    uint64_t hset_hash(void *, uint64_t);
 
 
 #endif

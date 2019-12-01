@@ -1,7 +1,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <assert.h>
-#include "map_person.h"
+#include "hset_person.h"
 #include "person.h"
 
 int init_wrapper_with_id(void *person, va_list props){
@@ -16,7 +16,7 @@ int init_wrapper_with_id(void *person, va_list props){
     return 0;
 }
 
-// a copy constructor is required for the map to work
+// a copy constructor is required for the hset to work
 int clone(void *dst, va_list props){
     person_t *p1 = dst, *p2 = (person_t*)va_arg(props, void *);
     assert(dst);
