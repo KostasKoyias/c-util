@@ -15,7 +15,7 @@
 
     int matrix_init(void *, uint64_t);
     void matrix_insert(void *, uint64_t);
-    void matrix_set(void *, uint64_t, uint64_t, uint64_t);
+    int matrix_set(void *, uint64_t, uint64_t, uint64_t);
     void matrix_expand(void*, uint64_t);
     void matrix_print(void*);
     void matrix_free(void*);

@@ -29,15 +29,18 @@ void matrix_expand(void *matrix, uint64_t rows){
     }
 }
 
-void matrix_set(void *matrix, uint64_t value, uint64_t row, uint64_t col){
+int matrix_set(void *matrix, uint64_t value, uint64_t row, uint64_t col){
     matrix_t *m = matrix;
     assert(matrix);
+    if(col > m->cols-1)
+        return -1;
 
     if(row > m->rows){
         matrix_expand(matrix, row + 1 - m->rows);
         m->next = col + 1;
     }
     m->data[row][col] = value;
+    return 0;
 }
 
 void matrix_insert(void *matrix, uint64_t value){
