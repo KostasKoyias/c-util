@@ -5,7 +5,7 @@
 #include "hset.h"
 #include "utils.h"
 
-#define PEOPLE 1000
+#define PEOPLE 100
 #define MAX_ID 10000
 #define MAX_NAME 20
 
@@ -15,7 +15,7 @@ int main(){
     srand(time(NULL));
 
     // initialize a hash set for a specific data type
-    hset_init(&hash_set, sizeof(person_t), get_key, init_wrapper_with_id, compare, print, destroy);
+    hset_init(&hash_set, sizeof(person_t), get_key, init_wrapper_with_id, seek, print, destroy);
 
     // insert objects into the hash_set
     for(int i = 0; i < PEOPLE; i++){

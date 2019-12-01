@@ -9,10 +9,11 @@ int list_init_wrap(void *list, va_list props){
     char *name = va_arg(props, char *);
     size_t node_size = va_arg(props, size_t);
     int (*init)(void*, va_list) = va_arg(props, int (*)(void *, va_list));
+    int (*seek)(const void*, const void*) = va_arg(props, int (*)(const void *, const void *));
     int (*cmp)(const void*, const void*) = va_arg(props, int (*)(const void *, const void *));
     void (*print)(void*) = va_arg(props, void (*)(void *));
     void (*destroy)(void*) = va_arg(props, void (*)(void*));
-    return list_init(list, name , node_size, init, cmp, print, destroy);
+    return list_init(list, name , node_size, init, seek, cmp, print, destroy);
 }
 
 // apply a function to each element of the list
@@ -46,13 +47,13 @@ int list_reduce(void *lst, int init, int (*reducer)(void *, const int)){
 node_t *list_best(void *lst, uint8_t max_or_min){
     list_t *list = lst;
     node_t *best = NULL, *i;
-    assert(list  && list->cmp);
+    assert(list  && list->seek);
 
     if(list_is_empty(list))
         return NULL;
     
     for(i = list->head, best = i; i->next != NULL; i = i->next)
-        if((max_or_min == 0 && list->cmp(best, i->next) < 0) || (max_or_min && list->cmp(best, i->next) > 0))
+        if((max_or_min == 0 && list->seek(best, i->next) < 0) || (max_or_min && list->seek(best, i->next) > 0))
             best = i->next;
 
     return best;
@@ -94,10 +95,10 @@ void list_sort(void *list){
     node_t *min;
     assert(list && l->cmp);
 
-    for(node_t *i = l->head; i != NULL; i = i->next){
+    for(node_t *i = l->head; i != NULL; i = min->next){
         min = i;
         for(node_t *j = i->next; j != NULL; j = j->next){
-            if(l->cmp(min, j) > 0)
+            if(l->cmp(min->data, j->data) > 0)
                 min = j;
         }
         if(i != min)

@@ -15,7 +15,7 @@ int main(){
     srand(time(NULL));
 
     // initialize a hash_set for a specific data type
-    hset_init(&hash_set, sizeof(person_t), get_key, init_wrapper_with_id, compare, print, destroy);
+    hset_init(&hash_set, sizeof(person_t), get_key, init_wrapper_with_id, seek, print, destroy);
 
     // insert objects into the hash_set
     for(int i = 0; i < PEOPLE; i++){

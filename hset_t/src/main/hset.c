@@ -18,7 +18,7 @@ int hset_init(void *hash_set, size_t size, uint64_t (*get_key)(const void *), in
     // initialize a list vector where each list represents a bucket
     vector_init(&(h->buckets), h->bucks_num, sizeof(list_t), list_init_wrap, NULL, NULL, NULL, list_print, list_free);
     for(int i = 0; i < h->buckets.capacity; i++)
-        vector_insert(&(h->buckets), 0, "bucket", size, clone, cmp, print, destroy);
+        vector_insert(&(h->buckets), 0, "bucket", size, clone, cmp, NULL, print, destroy);
     return 0;
 }
 

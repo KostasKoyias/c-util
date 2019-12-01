@@ -34,6 +34,7 @@
 | Name             | Description                                                                                                                                                  |
 |------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | `init(mandatory)` | Initialize an instance. On node addition(front or end), this function will be called by list_insert.                                                         |
-| `cmp`              | Compare an instance with a value(not necessarily of the same type e.g it can be just an id pointer). Used to find a certain instance or the 'best'(min or max)  one. |
+| `seek`              | Compare an instance with a value(not necessarily of the same type e.g it can be just an id pointer). Used to find a certain instance or the 'best'(min or max)  one. |
+| `cmp`              | Compare two instances of the data type the nodes hold. Used to sort the list. |
 | `print`            | Display an instance of this type. Called by list_print for each list element.                                                                                |
 | `destroy`        | De-allocate all resources used for a certain instance of this list. Those were allocated during `init`.                                                      |

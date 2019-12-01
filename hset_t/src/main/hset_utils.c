@@ -57,7 +57,7 @@ void hset_split(void *hset){
     
     //insert the new to hold the re-distributed records
     vector_insert(&(h->buckets), 1, "bucket", bucket1->node_size, bucket1->init, 
-                  bucket1->cmp, bucket1->print, bucket1->destroy);  
+                  bucket1->seek, NULL, bucket1->print, bucket1->destroy);  
 
     // get both the old bucket to be split and the new to be filled
     bucket1 = vector_get(&(h->buckets), h->split);
