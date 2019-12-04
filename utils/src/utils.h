@@ -16,6 +16,10 @@
     int str_rename(char **, const char *);
     int str_count(char *, char);
     int last_index_of(char, const char*);
+    int count_matches(char* , const char *);
+    int remove_all(char* , char *);
+    char* surround_with(char* , const char *, const char *, const char *);
+
 
 
     // bit-by-bit utilities
