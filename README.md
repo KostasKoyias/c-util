@@ -57,7 +57,8 @@ Under `./utils/src` one can find many utility functions related to
 ## How to use it ##
 
 All of the above go with a demo directory or source file
-displaying their usage & functionality.
+displaying their usage & functionality, as well as
+a makefile making compilation & linking easier.
 See the corresponding READMEs for more information.
 
 ### Last note ###
