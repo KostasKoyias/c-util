@@ -15,13 +15,22 @@ int matrix_init(void *matrix, uint64_t cols){
 }
 
 // add rows to a matrix, filled with 0s
-void matrix_expand(void *matrix, uint64_t rows){
+void matrix_resize(void *matrix, int64_t rows){
     uint64_t i;
     matrix_t *m = matrix;
     assert(matrix);
+
+    // if this is a shrinking
+    if(rows < 0){
+        for(uint64_t i = m->rows + rows; i < m->rows; i++)
+            reset(m->data[i]);
+    }
+
+    // update matrix
     m->rows += rows;
     m->data = realloc(m->data, m->rows * sizeof(uint64_t*));
 
+    // fill added rows with 0s
     for(i = m->rows - rows; i < m->rows; i++){
         m->data[i] = malloc(m->cols * sizeof(uint64_t));
         memset(m->data[i], 0, m->cols * sizeof(uint64_t));
@@ -38,12 +47,43 @@ int matrix_set(void *matrix, uint64_t value, uint64_t row, uint64_t col){
 
     capacity_required = nearest_power_of2(row + 1, bits);
     if(m->rows == 0) // if matrix is empty
-        matrix_expand(matrix, MATRIX_INITIAL_CAPACITY);
+        matrix_resize(matrix, MATRIX_INITIAL_CAPACITY);
     else if(capacity_required > m->rows) // double the # of rows, if there aren't enough
-        matrix_expand(matrix, capacity_required - m->rows);
+        matrix_resize(matrix, capacity_required - m->rows);
 
     m->data[row][col] = value;
     return 0;
+}
+
+uint64_t matrix_get(void *matrix, uint64_t i, uint64_t j){
+    matrix_t *m = matrix;
+    assert(matrix && i < m->rows && j < m->cols);
+    return m->data[i][j];
+}
+
+int matrix_empty_row(void *matrix, uint64_t row){
+    int i;
+    matrix_t *m = matrix;
+    assert(matrix);
+
+    if(row >= m->rows)
+        return -1;
+    
+    for(i = 0; i < m->cols && m->data[row][i] == 0; i++);
+    return i == m->cols;
+}
+
+uint64_t matrix_finalize(void *matrix){
+    matrix_t *m = matrix;
+    uint64_t i;
+    assert(matrix);
+
+    // release consecutive bottom-most empty rows
+    for(i = m->rows-1; i >= 0 && matrix_empty_row(matrix, i); i--);
+    if(i < m->rows - 1)
+        matrix_resize(matrix, i + 1 - m->rows);
+
+    return m->rows - (i + 1); // the number of rows released
 }
 
 void matrix_print(void *matrix){

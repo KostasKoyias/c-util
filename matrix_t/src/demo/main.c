@@ -1,3 +1,4 @@
+#include <stdio.h>
 #include <time.h>
 #include "matrix.h"
 #define MAX 1000
@@ -16,5 +17,9 @@ int main(){
     }
 
     matrix_print(&matrix);
+    matrix_finalize(&matrix); // shrink to fit content
+    matrix_print(&matrix);
+    fprintf(stdout, "Last value: %lu\n", matrix.data[matrix.rows-1][matrix.cols-1]);
+
     matrix_free(&matrix);
 }

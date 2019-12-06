@@ -14,7 +14,9 @@
 
     int matrix_init(void *, uint64_t);
     int matrix_set(void *, uint64_t, uint64_t, uint64_t);
-    void matrix_expand(void*, uint64_t);
+    void matrix_resize(void*, int64_t);
+    uint64_t matrix_get(void *, uint64_t, uint64_t);
+    uint64_t matrix_finalize(void *);
     void matrix_print(void*);
     void matrix_free(void*);
     int matrix_isempty(void *);
