@@ -30,7 +30,7 @@
     // math utilities
     int math_round(float);
     int is_power_of2(uint64_t);
-    int nearest_power_of2(uint64_t, uint8_t);
+    uint64_t nearest_power_of2(uint64_t, uint8_t);
 
     
 #endif

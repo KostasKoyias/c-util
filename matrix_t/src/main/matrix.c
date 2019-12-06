@@ -9,7 +9,7 @@ int matrix_init(void *matrix, uint64_t cols){
     assert(matrix);
 
     m->data = NULL;
-    m->rows = m->next = 0;
+    m->rows = 0;
     m->cols = cols;
     return 0;
 }
@@ -20,7 +20,6 @@ void matrix_expand(void *matrix, uint64_t rows){
     matrix_t *m = matrix;
     assert(matrix);
     m->rows += rows;
-    m->next = 0;
     m->data = realloc(m->data, m->rows * sizeof(uint64_t*));
 
     for(i = m->rows - rows; i < m->rows; i++){
@@ -31,26 +30,20 @@ void matrix_expand(void *matrix, uint64_t rows){
 
 int matrix_set(void *matrix, uint64_t value, uint64_t row, uint64_t col){
     matrix_t *m = matrix;
+    uint64_t capacity_required;
+    uint8_t bits = 64;
     assert(matrix);
     if(col > m->cols-1)
         return -1;
 
-    if(row > m->rows){
-        matrix_expand(matrix, row + 1 - m->rows);
-        m->next = col + 1;
-    }
+    capacity_required = nearest_power_of2(row + 1, bits);
+    if(m->rows == 0) // if matrix is empty
+        matrix_expand(matrix, MATRIX_INITIAL_CAPACITY);
+    else if(capacity_required > m->rows) // double the # of rows, if there aren't enough
+        matrix_expand(matrix, capacity_required - m->rows);
+
     m->data[row][col] = value;
     return 0;
-}
-
-void matrix_insert(void *matrix, uint64_t value){
-    matrix_t *m = matrix;
-    assert(matrix);
-
-    // insert a new row when in case the matrix is empty or the very last row is full
-    if(matrix_isempty(matrix) || matrix_isfull(matrix))
-        matrix_expand(matrix, 1);
-    m->data[m->rows-1][m->next++] = value;
 }
 
 void matrix_print(void *matrix){
@@ -82,10 +75,4 @@ int matrix_isempty(void *matrix){
     matrix_t *m = matrix;
     assert(matrix);
     return m->rows == 0;
-}
-
-int matrix_isfull(void *matrix){
-    matrix_t *m = matrix;
-    assert(matrix);
-    return m->next == m->cols;
 }

@@ -12,7 +12,7 @@ int is_power_of2(uint64_t num){
     return ((num - 1) & num) == 0;
 }
 
-int nearest_power_of2(uint64_t num, uint8_t bits){
+uint64_t nearest_power_of2(uint64_t num, uint8_t bits){
     uint8_t max_bit = bits + 1;
 
     // if this is a power of 2, return as is

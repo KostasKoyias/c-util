@@ -4,12 +4,13 @@
 
 ## Insertion ##
 
-On regular insertion, the element will be placed in the next position available.
-In case of an empty or full matrix, a new row will be added,
-with all values set to 0s.
+Inserting an element on a **specified position** `(i, j)` where `i > matrix.rows`
+will result in increasing the number of rows to the smallest power of 2 `x`
+where `x > i`.
 
-Inserting an element on a **specified position** `(i, j)`, will result in creating
-`i + 1 - matrix.rows` new rows filled with 0s, in case `i >= matrix.rows`.
+For example, suppose that matrix.rows equals 16 and an insertion
+at (78, 3) is requested. Then matrix.rows is set to 128 and
+the appropriate space reallocation takes place.
 
 ## How to use it ##
 
