@@ -14,7 +14,7 @@ int matrix_init(void *matrix, uint64_t cols){
     return 0;
 }
 
-// add rows to a matrix, filled with 0s
+// add rows to a matrix, filled with -1s indicating empty spots
 void matrix_resize(void *matrix, int64_t rows){
     uint64_t i;
     matrix_t *m = matrix;
@@ -30,10 +30,10 @@ void matrix_resize(void *matrix, int64_t rows){
     m->rows += rows;
     m->data = realloc(m->data, m->rows * sizeof(uint64_t*));
 
-    // fill added rows with 0s
+    // fill added rows with -1s
     for(i = m->rows - rows; i < m->rows; i++){
         m->data[i] = malloc(m->cols * sizeof(uint64_t));
-        memset(m->data[i], 0, m->cols * sizeof(uint64_t));
+        memset(m->data[i], UINT32_MAX, m->cols * sizeof(uint64_t));
     }
 }
 
@@ -69,7 +69,7 @@ int matrix_empty_row(void *matrix, uint64_t row){
     if(row >= m->rows)
         return -1;
     
-    for(i = 0; i < m->cols && m->data[row][i] == 0; i++);
+    for(i = 0; i < m->cols && m->data[row][i] == UINT64_MAX; i++);
     return i == m->cols;
 }
 
@@ -96,7 +96,7 @@ void matrix_print(void *matrix){
             m->rows, m->cols);
     for(i = 0; i < m->rows; i++){
         for(j = 0; j < m->cols; j++)
-            fprintf(stdout, "%-23lu\t", m->data[i][j]);
+            fprintf(stdout, "%-23ld\t", m->data[i][j]);
         fputc('\n', stdout);
     }
 }
