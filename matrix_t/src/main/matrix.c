@@ -79,7 +79,7 @@ uint64_t matrix_finalize(void *matrix){
     assert(matrix);
 
     // release consecutive bottom-most empty rows
-    for(i = m->rows-1; i >= 0 && matrix_empty_row(matrix, i); i--);
+    for(i = m->rows-1; i >= 0 && matrix_empty_row(matrix, i) > 0; i--);
     if(i < m->rows - 1)
         matrix_resize(matrix, i + 1 - m->rows);
 

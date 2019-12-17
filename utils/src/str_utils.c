@@ -44,11 +44,16 @@ int last_index_of(char c, const char* str){
 
 // for each matching part shift initial string to the left as many positions as the length of the substring
 int remove_all(char *str, char *sub){
+    int len_str, len_sub;
     assert(str && sub && strlen(str) >= strlen(sub));
 
-    for(int i = 0; i < strlen(str)- strlen(sub) + 1; i++){
-        while(memcmp(str + i, sub, strlen(sub)) == 0 && strlen(str) >= strlen(sub))
-            memmove(str + i, str + i + strlen(sub), strlen(str + i + strlen(sub)) + 1);
+    len_str = strlen(str);
+    len_sub = strlen(sub);
+    for(int i = 0; i < len_str - len_sub + 1; i++){
+        while(memcmp(str + i, sub, len_sub) == 0 && len_str >= len_sub){
+            memmove(str + i, str + i + len_sub, len_str - (i + len_sub) + 1);
+            len_str -= len_sub;
+        }
     }
 
     return 0;

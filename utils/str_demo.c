@@ -25,7 +25,7 @@ int main(){
     fprintf(stdout, "\n\e[1;4m >> Renaming string\e[0m\nv1: %s\n", str);
     str_rename(&str, "A string, way bigger than the previous string, reallocating space was required");
     fprintf(stdout, "v2: %s\n", str);
-    str_rename(&str, "v3: A tiny one, tinyyy!");
+    str_rename(&str, "v3: A tiny one, tinyyy!__tiny");
     fprintf(stdout, "%s\n", str);
 
     str = surround_with(str, "tiny", COLOR, RESET);
