@@ -114,3 +114,10 @@ void heap_push(void *heap, ...){
             break;
     }
 }
+
+void heap_sort(void *heap){
+    heap_t *this = heap;
+
+    assert(heap);
+    hsort(this->array, this->length, this->size, this->cmp);
+}
