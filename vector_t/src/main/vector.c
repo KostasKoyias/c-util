@@ -19,7 +19,7 @@ int vector_init(void *vector, int capacity, size_t size,
     v->size = size;
 
     // actual content
-    v->data = calloc(MIN_ELEMENTS, v->size);
+    v->data = calloc(v->capacity, v->size);
 
     // member methods
     v->init = init;
@@ -28,7 +28,7 @@ int vector_init(void *vector, int capacity, size_t size,
     v->clone = clone;
     v->print = print;
     v->destroy = destroy;
-    return MIN_ELEMENTS;
+    return v->capacity;
 }
 
 int vector_insert(void *vector, int single, ...){

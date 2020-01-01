@@ -1,15 +1,15 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <stdlib.h>
 #include <string.h>
 #include <sys/types.h>
 #include <unistd.h>
 #include <assert.h>
 #include <time.h>
+#include "heap.h"
 #include "utils.h"
 
-#define SIZE 30
-#define MAX 10
+#define SIZE 10
+#define MAX 100
 #define SHIFT 5
 
 // array member methods for specific type
@@ -45,8 +45,8 @@ int main(){
 
     // sort using different methods
     qsort(array, SIZE, sizeof(int), comparator); // stdlib.qsort
-    hsort(heap, SIZE, sizeof(int), comparator);
-    msort(mrg, SIZE, sizeof(int), comparator);
+    hsort(heap, SIZE, sizeof(int), comparator);  // heap_t.src.main.hsort
+    msort(mrg, SIZE, sizeof(int), comparator);   // utils.src.msort 
 
     // display outcome of each method
     print(array, SIZE);

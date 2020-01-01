@@ -1,12 +1,14 @@
 CC = gcc
 BASE = $(shell git rev-parse --show-toplevel)
 MAIN = $(BASE)/utils/src
-CFLAGS = -g3 -Wall -I$(MAIN)
+HEAP = $(BASE)/heap_t/src/main
+VECTOR = $(BASE)/vector_t/src/main
+CFLAGS = -g3 -Wall -I$(MAIN) -I$(HEAP) -I$(VECTOR)
 
 HDRS = $(MAIN)/utils.h
 MEM = $(MAIN)/mem_utils.o
 STR_OBJS = $(MAIN)/str_utils.o $(MEM)
-SORT_OBJS = $(MAIN)/msort.o $(MAIN)/hsort.o $(MEM)
+SORT_OBJS = $(HEAP)/heap_utils.o $(HEAP)/heap.o $(MEM) $(MAIN)/msort.o
 MATH_OBJS = $(MAIN)/math_utils.o
 OBJS = $(STR_OBJS) $(MATH_OBJS) $(MEM) $(SORT_OBJS)
 OUT = str_demo math_demo sort_demo
