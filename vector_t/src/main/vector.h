@@ -5,6 +5,7 @@
 #ifndef _vector_H
 #define _vector_H
     #define MIN_ELEMENTS 2
+    #define SINGLE 1
 
     typedef struct vector{
         void *data;
@@ -25,6 +26,7 @@
                     int (*)(const void*, const void*), int (*)(const void*, const void*),
                     void (*)(void*, const void*), void (*)(void *), void (*)(void *));
     int vector_insert(void*, int, ...);
+    int __vector_insert(void *, int, va_list);
     void *vector_get(void*, uint64_t);
     void *vector_seek(void*, const void*, uint64_t*);
     int vector_isfull(const void *);

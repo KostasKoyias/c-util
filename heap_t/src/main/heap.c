@@ -59,6 +59,7 @@ int heap_isempty(void *heap){
     return this->vector.next == 0;
 }
 
+// reset this heap, letting go of all memory allocated
 void heap_free(void *heap){
     heap_t *this = heap;
 
@@ -66,4 +67,50 @@ void heap_free(void *heap){
     this->cmp = NULL;
     this->array = NULL;
     this->size = this->length = 0;
+}
+
+// return a pointer to the root, the element with the highest priority
+void* heap_best(void *heap){
+    heap_t *this = heap;
+    assert(heap);
+    return this->array;
+}
+
+// return a pointer to the root, the element with the highest priority
+void heap_pop(void *heap){
+    heap_t *this = heap;
+    assert(heap);
+
+    // swap root with the bottom-most, right-most leaf(last element of heap)
+    heap_swap(heap);
+    vector_remove(&(this->vector), this->length-1);
+    this->length--;
+
+    // restore heap property by swapping with larger child until both of them are smaller/do not exist
+    heap_restore(heap, 0);
+}
+
+void heap_push(void *heap, ...){
+    heap_t *this = heap;
+    void *parent, *current;
+    va_list props;
+    assert(heap);
+
+    // insert the new element in the end of the heap
+    va_start(props, heap);
+    __vector_insert(&(this->vector), 0, props);
+    va_end(props);
+    this->array = this->vector.data;
+    this->length++;
+
+    // swap with parent until in the appropriate place
+    for(int index = this->length-1; index != 0; index = (index-1)/2){
+        parent = heap_parent(heap, index);
+        current = vector_get(&(this->vector), index);
+        
+        if(this->cmp(current, parent) > 0)
+            memswap(current, parent, this->size);
+        else
+            break;
+    }
 }

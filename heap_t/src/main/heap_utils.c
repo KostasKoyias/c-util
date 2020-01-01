@@ -14,18 +14,34 @@ void* maximum(void *a, void *b, int (*cmp)(const void *, const void *)){
 
 // get the left child of a node in an array-represented heap, by node index
 void* left_child(void *heap, int index){
-    heap_t *hp = heap;
+    heap_t *this = heap;
     assert(heap);
 
-    return (2 * index + 1 < hp->length) ? hp->array + hp->size * (2 * index + 1) : NULL;
+    return (2 * index + 1 < this->length) ? this->array + this->size * (2 * index + 1) : NULL;
 }
 
 // get the right child of a node in an array-represented heap, by node index
 void* right_child(void *heap, int index){
-    heap_t *hp = heap;
+    heap_t *this = heap;
     assert(heap);
 
-    return (2 * (index + 1) < hp->length) ? hp->array + hp->size * (2 * (index + 1)) : NULL;
+    return (2 * (index + 1) < this->length) ? this->array + this->size * (2 * (index + 1)) : NULL;
+}
+
+// get the parent of an element by index
+void* heap_parent(void *heap, int index){
+    heap_t *this = heap;
+    assert(heap);
+
+    return index > 0 ? vector_get(&(this->vector), (index - 1)/2): NULL;
+}
+
+void heap_insert(void *heap, void *value){
+    heap_t *this = heap;
+    assert(heap);
+
+    vector_insert(&(this->vector), 0, value);
+    this->array = this->vector.data;
 }
 
 // initialize a heap from an existing array
@@ -36,10 +52,8 @@ void __heap_init(void *heap, void *array, size_t length, size_t size,
         assert(heap);
         
         vector_init(&(this->vector), length, size, init, NULL, cmp, NULL, NULL, destroy);
-
         for(int i = 0; i < length; i++)
-            vector_insert(&(this->vector), 1, array + i * size);
-        this->array = this->vector.data;
+            heap_insert(heap, array + i *size); 
 }
 
 // heap sort in-place without creating a copy, swapping the i-th from last with the maximum
@@ -55,4 +69,10 @@ void hsort(void *array, size_t length, size_t size, int (*cmp)(const void *, con
     }
 
     heap.length = length;
+}
+
+// swap root element with the bottom-most, right-most leaf
+void heap_swap(void *heap){
+    heap_t *this = heap;
+    memmove(this->vector.data, this->vector.data + this->size * (this->length-1), this->size);
 }
