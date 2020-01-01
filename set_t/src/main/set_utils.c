@@ -1,21 +1,21 @@
 #include <stdio.h>
 #include <assert.h>
-#include "hset.h"
+#include "set.h"
 
 // replace the value of a mapping given a pointer to 
 // the properties of the new value, the first of whom represents the key 
-int vhset_replace(void *hset, va_list props){
+int vset_replace(void *set, va_list props){
     va_list tmp;
     uint64_t key;
-    hset_t *h = hset;
+    set_t *h = set;
     void *dst;
-    assert(hset);
+    assert(set);
 
     // get key & locate mapping for it
     va_copy(tmp, props);
     key = va_arg(tmp, uint64_t);
     va_end(tmp);
-    if((dst = hset_get(hset, key)) == NULL)
+    if((dst = set_get(set, key)) == NULL)
         return -1;
 
     // release resources allocated for the previous values
@@ -25,32 +25,32 @@ int vhset_replace(void *hset, va_list props){
     return ((list_t *)vector_get(&(h->buckets), 0))->init(dst, props);
 }
 
-void hset_foreach(void *hset, void (*callback)(void *)){
-    hset_t *h = hset;
-    assert(hset && callback);
+void set_foreach(void *set, void (*callback)(void *)){
+    set_t *h = set;
+    assert(set && callback);
 
     for(uint64_t i = 0; i < h->buckets.next; i++)
         list_foreach(vector_get(&(h->buckets), i), callback);
 }
 
-float hset_lf(void *hset){
-    hset_t *h = hset;
-    assert(hset);
+float set_lf(void *set){
+    set_t *h = set;
+    assert(set);
 
     return ((float)h->load)/(h->bucks_capacity * h->buckets.next);
     h->bucks_num = BUCKETS;
 }
 
-uint64_t hset_hash(void *hset, uint64_t key){
-    hset_t *h = hset;
+uint64_t set_hash(void *set, uint64_t key){
+    set_t *h = set;
     return key % h->bucks_num < h->split ? key % (2 * h->bucks_num) : key % h->bucks_num;
 }
 
-void hset_split(void *hset){
-    hset_t *h = hset;
+void set_split(void *set){
+    set_t *h = set;
     node_t *parser, *tmp;
     list_t *bucket1, *bucket2;
-    assert(hset && h->get_key);
+    assert(set && h->get_key);
 
     // retrieve member methods for the new bucket from the very first one 
     bucket1 = vector_get(&(h->buckets), h->split);

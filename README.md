@@ -36,7 +36,7 @@ and the [API](./vector_t/API.md)  to find out more.
 A simple 2D dynamic table of unsigned 64-bit integers,
 adding rows as needed on insertion.
 
-### hset_t ###
+### set_t ###
 
 A linked hash-set implemented as a vector of doubly linked-lists,
 that can store any data-type, primitive or user-defined,
@@ -51,6 +51,7 @@ Under `./utils/src` one can find many utility functions related to
 * memory management
 * string manipulation
 * bit manipulation
+* sorting methods
 * error handling and
 * mathematics
 

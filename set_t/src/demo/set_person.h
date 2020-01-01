@@ -1,9 +1,9 @@
 /*
- * add some methods to the person_t example of list_t demo, suitable for the hset_t demo
+ * add some methods to the person_t example of list_t demo, suitable for the set_t demo
  */ 
 
-#ifndef _hset_person_H
-#define _hset_person_H
+#ifndef _set_person_H
+#define _set_person_H
     #include <stdint.h>
     #include "person.h"
 
