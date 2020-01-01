@@ -20,7 +20,9 @@
     int remove_all(char* , char *);
     char* surround_with(char* , const char *, const char *, const char *);
 
-
+    // array sorting methods
+    void msort(void *, size_t, size_t, int (*)(const void *, const void *));
+    void hsort(void *, size_t, size_t, int (*)(const void *, const void *));
 
     // bit-by-bit utilities
     uint64_t rand_bits(uint8_t);
