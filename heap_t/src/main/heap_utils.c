@@ -13,7 +13,7 @@ void* maximum(void *a, void *b, int (*cmp)(const void *, const void *)){
 }
 
 // get the left child of a node in an array-represented heap, by node index
-void* left_child(void *heap, int index){
+void* heap_left_child(void *heap, int index){
     heap_t *this = heap;
     assert(heap);
 
@@ -21,7 +21,7 @@ void* left_child(void *heap, int index){
 }
 
 // get the right child of a node in an array-represented heap, by node index
-void* right_child(void *heap, int index){
+void* heap_right_child(void *heap, int index){
     heap_t *this = heap;
     assert(heap);
 
@@ -56,19 +56,27 @@ void __heap_init(void *heap, void *array, size_t length, size_t size,
             heap_insert(heap, array + i *size); 
 }
 
-// heap sort in-place without creating a copy, swapping the i-th from last with the maximum
-// restoring the heap property for the first $size - $i nodes of the heap after each swap
+// heap sort in-place without creating a copy, 
 void hsort(void *array, size_t length, size_t size, int (*cmp)(const void *, const void *)){
     heap_t heap;
     assert(array && cmp);
     heap_init(&heap, array, length, size, SHALLOW, NULL, cmp, NULL);
+    heap_sort(&heap);
+}
 
-    for(heap.length = length-1; heap.length > 0; heap.length--){
-        memswap(heap.array, heap.array + heap.length * size, size);
-        heap_restore(&heap, 0);
+// heap-sort by swapping the i-th from last with the maximum
+// restoring the heap property for the first $size - $i nodes of the heap after each swap
+void heap_sort(void *heap){
+    int length;
+    heap_t *this = heap;
+    assert(heap);
+    
+    for(length = this->length, this->length = length-1; this->length > 0; this->length--){
+        memswap(this->array, this->array + this->length * this->size, this->size);
+        heap_restore(this, 0);
     }
 
-    heap.length = length;
+    this->length = length;
 }
 
 // swap root element with the bottom-most, right-most leaf

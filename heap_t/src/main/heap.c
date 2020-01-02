@@ -15,8 +15,8 @@ void heap_restore(void *heap, int index){
 
     right_index = 2 * (index + 1);
     left_index = 2 * index + 1;
-    left = left_child(heap, index);
-    right = right_child(heap, index);
+    left = heap_left_child(heap, index);
+    right = heap_right_child(heap, index);
     root = this->array + index * this->size;
     if(left == NULL && right == NULL)
        return;
@@ -38,7 +38,7 @@ void heap_restore(void *heap, int index){
 void heap_init(void *heap, void *array, size_t length, size_t size, int copy,
                 int (*init)(void *, va_list), int (*cmp)(const void*, const void*), void (*destroy)(void *)){
     heap_t *this = heap;
-    assert(heap);
+    assert(heap && cmp);
 
     if(copy == SHALLOW)
         this->array = array;
@@ -113,11 +113,4 @@ void heap_push(void *heap, ...){
         else
             break;
     }
-}
-
-void heap_sort(void *heap){
-    heap_t *this = heap;
-
-    assert(heap);
-    hsort(this->array, this->length, this->size, this->cmp);
 }

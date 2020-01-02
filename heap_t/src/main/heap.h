@@ -15,15 +15,18 @@
         int (*cmp)(const void *, const void *);
     }heap_t;
 
-    // heap utilities -- helper methods
+    // heap utilities -- helper/hidden methods
     void *maximum(void *, void*, int (*)(const void *, const void *));
-    void *heap_parent(void *, int);
-    void *left_child(void *, int);
-    void *right_child(void *, int);
     void heap_swap(void *);
     void hsort(void *, size_t, size_t, int (*)(const void *, const void *)); // sort in-place
+    void heap_restore(void *, int);
     void __heap_init(void *, void *, size_t, size_t, 
                   int (*)(void *, va_list), int (*)(const void*, const void*), void (*)(void *));
+
+    // heap traversal helper methods
+    void *heap_parent(void *, int);
+    void *heap_left_child(void *, int);
+    void *heap_right_child(void *, int);
 
     // heap member methods
     void heap_init(void *, void *, size_t, size_t, int, 
@@ -34,7 +37,5 @@
     void* heap_best(void *);
     void heap_push(void *, ...);
     void heap_pop(void *);
-    void heap_restore(void *, int);
-
 
 #endif 
