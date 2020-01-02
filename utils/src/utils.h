@@ -16,10 +16,23 @@
     int str_rename(char **, const char *);
     int str_count(char *, char);
     int last_index_of(char, const char*);
+    int count_matches(char* , const char *);
+    int remove_all(char* , char *);
+    char* surround_with(char* , const char *, const char *, const char *);
 
+    // array sorting methods
+    void msort(void *, size_t, size_t, int (*)(const void *, const void *));
+    void hsort(void *, size_t, size_t, int (*)(const void *, const void *));
 
-    // general-purpose utils
+    // bit-by-bit utilities
     uint64_t rand_bits(uint8_t);
+    void set_bit(uint32_t *, uint8_t);
+    uint8_t get_bit(uint32_t, uint8_t);
+
+    // math utilities
     int math_round(float);
+    int is_power_of2(uint64_t);
+    uint64_t nearest_power_of2(uint64_t, uint8_t);
+
     
 #endif

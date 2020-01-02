@@ -4,7 +4,8 @@
 #include "list.h"
 #include "utils.h"
 
-int list_init(void *lst, const char *name, const size_t node_size, int (*init)(void*, va_list), 
+int list_init(void *lst, const char *name, const size_t node_size, 
+            int (*init)(void*, va_list), int (*seek)(const void*, const void*), 
             int (*cmp)(const void*, const void*), void (*print)(void*), void (*destroy)(void*)){
         list_t *list = lst;
         assert(list && init);
@@ -20,6 +21,7 @@ int list_init(void *lst, const char *name, const size_t node_size, int (*init)(v
 
         // member methods of list nodes
         list->init = init;       
+        list->seek = seek;
         list->cmp = cmp;
         list->print = print;
         list->destroy = destroy != NULL ? destroy : free;
@@ -38,10 +40,10 @@ int list_is_empty(const void *lst){
 void *list_search(const void * lst, const void *data){
     const list_t *list = lst;
     node_t* parser;
-    assert(list && list->cmp && data);
+    assert(list && list->seek && data);
 
     for(parser = list->head; parser != NULL; parser = parser->next){
-        if(list->cmp(parser->data, data) == 0)
+        if(list->seek(parser->data, data) == 0)
             return parser;
     }
     return NULL;
@@ -133,7 +135,7 @@ node_t *list_pop(void *lst){
 int list_delete(void* lst, const void *data){
     list_t *list = lst;
     node_t *node;
-    assert(list && list->head && data && list->cmp);
+    assert(list && list->head && data && list->seek);
 
     // find the node to be removed
     if((node = list_search((const list_t*)list, data)) == NULL)
@@ -177,6 +179,7 @@ void list_free(void* lst){
 
     // clear all properties
     list->init = NULL;
+    list->seek = NULL;
     list->cmp = NULL;
     list->print = NULL;
     list->destroy = NULL;

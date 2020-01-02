@@ -10,9 +10,10 @@ uint64_t rand_bits(uint8_t bits){
     return num;
 }
 
-int math_round(float x){
-    if(x < 0)
-        return (-1) * (((-1) * x + 0.5)/1);
-    else
-        return (x + 0.5)/1;
+void set_bit(uint32_t *map, uint8_t index){
+    *map = *map | (1 << index);
+}
+
+uint8_t get_bit(uint32_t map, uint8_t index){
+    return (map & (1 << index)) > 0;
 }

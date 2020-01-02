@@ -31,9 +31,14 @@ Please take a look at the corresponding
 documentation for the [implementation](./vector_t/README.md)
 and the [API](./vector_t/API.md)  to find out more.
 
-### map_t ###
+### matrix_t ###
 
-A linked hash-map implemented as a vector of doubly linked-lists,
+A simple 2D dynamic table of unsigned 64-bit integers,
+adding rows as needed on insertion.
+
+### set_t ###
+
+A linked hash-set implemented as a vector of doubly linked-lists,
 that can store any data-type, primitive or user-defined,
 based on a key field, using
 [linear hashing](http://cgi.di.uoa.gr/~ad/M149/e_ds_linearhashing.pdf)
@@ -45,13 +50,16 @@ Under `./utils/src` one can find many utility functions related to
 
 * memory management
 * string manipulation
-* error handling or just
-* general purpose
+* bit manipulation
+* sorting methods
+* error handling and
+* mathematics
 
 ## How to use it ##
 
 All of the above go with a demo directory or source file
-displaying their usage & functionality.
+displaying their usage & functionality, as well as
+a makefile making compilation & linking easier.
 See the corresponding READMEs for more information.
 
 ### Last note ###

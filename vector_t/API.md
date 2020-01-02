@@ -2,7 +2,9 @@
 
 ## Methods Summary
 
-### Basic
+### Member Methods
+
+#### Basic
 
 | Name         | Description                                                                        |
 |--------------|----------------------------------------------------------------------------------------------------------------------------------|
@@ -17,7 +19,7 @@
 | `vector_shrink`  | Reduce the capacity of the vector to be equal to fit the current positions taken. Use when vector is final.|
 | `vector_free`    | Free all resources allocated for this vector, using the `vector->destroy` to release each node, if provided on initialization.|
 
-### Advanced
+#### Advanced
 
 | Name         | Description                                                                        |
 |--------------|----------------------------------------------------------------------------------------------------------------------------------|
@@ -28,7 +30,7 @@
 | `vector_cmp`     | Compare 2 vectors for equality. Two vectors of the same node size, filled positions(not total length) and 'cmp' member methods are equal if 'cmp' returns 0 for all items on same positions.|
 | `vector_clone` | Copy a vector's content and meta-data to an **uninitialized** one, which shall later be freed.                          |
 
-## Type methods
+### Type methods
 
 | Name             | Description                                                                                                    |
 |------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------|

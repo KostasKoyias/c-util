@@ -9,9 +9,9 @@ int main(){
     list_t list;
 
     // initialize list & display initial state
-    list_init(&list, "order-list", sizeof(person_t), init_wrapper, compare, print, destroy);
+    list_init(&list, "order-list", sizeof(person_t), init_wrapper, seek, cmp, print, destroy);
     for(int i = 0; i < USERS; i++)
-        list_insert(&list, ps[i]);
+            list_insert(&list, ps[i]);
     list_print(&list);
 
     // reverse list

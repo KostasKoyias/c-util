@@ -7,7 +7,8 @@
         char * name;
     }person_t;
 
-    int compare(const void*, const void*);
+    int seek(const void*, const void*);
+    int cmp(const void*, const void*);
     int init_wrapper(void *, va_list);
     int init(void*, const void*);
     void print(void*);

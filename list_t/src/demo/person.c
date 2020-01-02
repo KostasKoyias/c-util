@@ -4,13 +4,21 @@
 #include <assert.h>
 #include "person.h"
 
-// person_t member methods are defined below
-int compare(const void *p1, const void *vid){
+// seek a person based on the id
+int seek(const void *p1, const void *vid){
     assert(p1 && vid);
 
     const person_t *pp1 = p1;
     const int *id = vid;
     return pp1->id - *id;
+}
+
+// compare a person to another based on their ids
+int cmp(const void *p1, const void *p2){
+    assert(p1 && p2);
+
+    const person_t *pp1 = p1, *pp2 = p2;
+    return pp1->id - pp2->id;
 }
 
 int init_wrapper(void *p, va_list props){

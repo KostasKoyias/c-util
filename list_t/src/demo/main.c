@@ -10,7 +10,7 @@ int main(){
     int ids[USERS] = {1, 23, 99, 34};
 
     // initialize list & display initial list
-    list_init(&list, "demo-list", sizeof(person_t), init_wrapper, compare, print, destroy);
+    list_init(&list, "demo-list", sizeof(person_t), init_wrapper, seek, NULL, print, destroy);
     for(int i = 0; i < USERS; i++)
         list_insert(&list, ps[i]);
     list_print(&list);

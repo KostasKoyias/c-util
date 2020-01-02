@@ -19,7 +19,7 @@ int vector_init(void *vector, int capacity, size_t size,
     v->size = size;
 
     // actual content
-    v->data = calloc(MIN_ELEMENTS, v->size);
+    v->data = calloc(v->capacity, v->size);
 
     // member methods
     v->init = init;
@@ -28,24 +28,32 @@ int vector_init(void *vector, int capacity, size_t size,
     v->clone = clone;
     v->print = print;
     v->destroy = destroy;
-    return MIN_ELEMENTS;
+    return v->capacity;
 }
 
 int vector_insert(void *vector, int single, ...){
-    vector_t *v = vector;
     va_list props;
+    assert(vector);
+
+    // use the appropriate constructor to initialize the new item
+    va_start(props, single);
+    __vector_insert(vector, single, props);
+    va_end(props);
+    return 0;
+}
+
+int __vector_insert(void *vector, int single, va_list props){
+    vector_t *v = vector;
     assert(vector);
 
     // double vector capacity if full
     if(vector_isfull(vector)){
-        v->capacity = single ? v->capacity + 1 : v->capacity * 2;
+        v->capacity = single == SINGLE ? v->capacity + 1 : v->capacity * 2;
         v->data = realloc(v->data, v->size * v->capacity);
     }
 
     // use the appropriate constructor to initialize the new item
-    va_start(props, single);
     v->init(v->data + ((v->next++) * v->size), props);
-    va_end(props);
     return 0;
 }
 

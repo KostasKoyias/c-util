@@ -27,6 +27,7 @@
         uint8_t length;   
 
         // member methods for specific type
+        int (*seek)(const void*, const void*);
         int (*cmp)(const void*, const void*);
         int (*init)(void*, va_list);
         void (*print)(void*);
@@ -43,8 +44,9 @@
     void node_swap(void*, void *);
 
     // basic list methods
-    int list_init(void *, const char *, const size_t, int (*)(void *, va_list),
-                 int (*)(const void *, const void*), void (*)(void*), void (*)(void *));
+    int list_init(void *, const char *, const size_t, int (*)(void *, va_list), 
+                 int (*)(const void *, const void*), int (*)(const void *, const void*), 
+                 void (*)(void*), void (*)(void *));
     int list_init_wrap(void *, va_list);
     int list_is_empty(const void *);
     void* list_search(const void *, const void* data);
@@ -65,7 +67,7 @@
     void list_reverse(void *);
     void list_swap(void *, void *, void *);
     void list_sort(void *);
-    void list_print_rev(void *);
+    void list_sort_distinct(void *);
     int list_foreach(const void *, void (*)(void *));
     int list_foreach_from(const void *, void (*)(void *), int);
     int list_reduce(void *, int, int (*)(void *, const int));
