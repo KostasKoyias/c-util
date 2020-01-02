@@ -2,7 +2,9 @@
 
 ## Methods Summary
 
-### Basic Methods
+### Member Methods
+
+#### Basic Methods
 
 | Name         | Description                                                                                                                      |
 |--------------|----------------------------------------------------------------------------------------------------------------------------------|
@@ -18,7 +20,7 @@
 | `list_print`   | Display all elements of a list using the `list->print` method provided.                                                                |
 | `list_free`    | Free all resources allocated for this list, using the `list->free_data` if provided.|
 
-### Advanced methods
+#### Advanced methods
 
 | Name         | Description                                                                                                                      |
 |--------------|----------------------------------------------------------------------------------------------------------------------------------|
@@ -30,7 +32,7 @@
 | `list_foreach` | Apply a function to each node of the list.                                                                        |
 | `list_best`    | Retrieve the maximum or minimum valued element of the list. Member method 'cmp' needs to be provided.                            |
 
-## Type methods
+### Type methods
 
 | Name             | Description                                                                                                                                                  |
 |------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------|
