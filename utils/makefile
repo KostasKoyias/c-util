@@ -20,6 +20,5 @@ str_demo: $(STR_OBJS) $(HDRS)
 sort_demo: $(SORT_OBJS) $(HDRS)
 math_demo: $(MATH_OBJS) $(HDRS)
 
-
 clean: 
 	rm -f $(OBJS) $(OUT)

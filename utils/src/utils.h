@@ -3,6 +3,7 @@
 
     #include <stdio.h>
     #include <stdint.h>
+    #define BYTE_TO_BITS 8
 
     // memory-related utilities
     void reset(void *);
@@ -15,6 +16,7 @@
     // string-related utilities
     int str_rename(char **, const char *);
     int str_count(char *, char);
+    char* str_reverse(char *);
     int last_index_of(char, const char*);
     int count_matches(char* , const char *);
     int remove_all(char* , char *);
@@ -26,8 +28,11 @@
 
     // bit-by-bit utilities
     uint64_t rand_bits(uint8_t);
-    void set_bit(uint32_t *, uint8_t);
-    uint8_t get_bit(uint32_t, uint8_t);
+    void set_bit(uint8_t *, uint8_t);
+    void reset_bit(uint8_t *, uint8_t);
+    void toggle_bit(uint8_t *, uint8_t);
+    uint8_t get_bit(uint8_t, uint8_t);
+    char *byte_to_bits(uint8_t);
 
     // math utilities
     int math_round(float);

@@ -114,3 +114,12 @@ char *surround_with(char *str, const char *pattern, const char *s1, const char *
     }
     return str;
 }
+
+char* str_reverse(char *str){
+    assert(str);
+
+    // iterate half of the string and swap symmetric spots
+    for(int i = 0; i < strlen(str)/2; i++)
+        memswap(str + i, str + strlen(str) - (i + 1), 1);
+    return str;
+}
