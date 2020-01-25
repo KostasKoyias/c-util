@@ -5,6 +5,7 @@
 #include <unistd.h>
 #include <assert.h>
 #include <time.h>
+#include "vector.h"
 #include "heap.h"
 #include "utils.h"
 
